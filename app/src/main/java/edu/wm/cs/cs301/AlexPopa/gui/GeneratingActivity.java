@@ -58,14 +58,26 @@ public class GeneratingActivity extends AppCompatActivity {
                 if(spinner.getSelectedItem().equals("Select:")) {
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please select a driver", 2000);
                     snackbar.show();
-                }else if(spinner.getSelectedItem().equals("Manual")){
-                    Intent intentG = new Intent(context, PlayManuallyActivity.class);
-                    startActivity(intentG);
-                }else{
-                    Intent intentG = new Intent(context, PlayAnimationActivity.class);
-                    intentG.putExtra("Driver", (String) spinner.getSelectedItem());
-                    intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
-                    startActivity(intentG);
+
+                }
+                boolean done = false;
+                while(loading.getProgress() == loading.getMax() && done == false){
+                    if(spinner.getSelectedItem().equals("Manual")){
+                        done = true;
+                        Intent intentG = new Intent(context, PlayManuallyActivity.class);
+                        startActivity(intentG);
+                    }else if (spinner.getSelectedItem().equals("Wall Follower") || (spinner.getSelectedItem().equals("Wizard"))){
+                        done = true;
+                        Intent intentG = new Intent(context, PlayAnimationActivity.class);
+                        intentG.putExtra("Driver", (String) spinner.getSelectedItem());
+                        intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
+                        startActivity(intentG);
+                    }
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
