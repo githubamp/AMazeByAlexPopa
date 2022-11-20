@@ -37,11 +37,4 @@ public class AMazeActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
     }
-
-    public void explore(View button){
-        Intent intentG = new Intent(this, GeneratingActivity.class);
-        SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
-        intentG.putExtra("Skill level", seekbar.getProgress());
-        startActivity(intentG);
-    }
 }

@@ -7,6 +7,8 @@
     <string name="revisit">Revisit</string>
     <string name="explore">Explore</string>
     <string name="name">Name</string>
+    <string name="please_select_a_driver">Please select a driver</string>
+    <string name="please_select_a_robot_configuration">Please select a robot configuration</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>
@@ -15,5 +17,17 @@
         <item>DFS</item>
         <item>PRIM</item>
         <item>BORUVKA</item>
+    </string-array>
+    <string-array name="driver_array">
+        <item>Select:</item>
+        <item>Manual</item>
+        <item>Wall Follower</item>
+        <item>Wizard</item>
+    </string-array>
+    <string-array name="configuration_array">
+        <item>Premium</item>
+        <item>Mediocre</item>
+        <item>Soso</item>
+        <item>Shaky</item>
     </string-array>
 </resources>
