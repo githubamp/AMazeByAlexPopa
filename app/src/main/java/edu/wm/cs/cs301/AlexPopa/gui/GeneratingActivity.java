@@ -36,10 +36,15 @@ public class GeneratingActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
         Thread load = new Thread(new Runnable(){
+            boolean shown = false;
             public void run(){
                 while(loading.getProgress() != loading.getMax()){
-                    try {
-                        Thread.sleep(50);
+                    if(!spinner.getSelectedItem().equals("Select:") && shown == false) {
+                        Snackbar wait = Snackbar.make(findViewById(android.R.id.content), "Please wait for the maze to finish generating", 2000);
+                        wait.show();
+                        shown = true;
+                    }
+                    try {Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -65,19 +70,5 @@ public class GeneratingActivity extends AppCompatActivity {
             }
         });
         load.start();
-            /*if(loading.getProgress() == loading.getMax() && !spinner.getSelectedItem().equals("Select:")){
-                if(spinner.getSelectedItem().equals("Manual")){
-                    Intent intentG = new Intent(this, PlayManuallyActivity.class);
-                    startActivity(intentG);
-                }else{
-                    Intent intentG = new Intent(this, PlayAnimationActivity.class);
-                    intentG.putExtra("Driver", (String) spinner.getSelectedItem());
-                    intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
-                    startActivity(intentG);
-                }
-            }else{
-                //Snackbar snackbar = Snackbar.make(this.findViewById(android.R.id.content), "Please select a driver", 100);
-                //snackbar.show();
-        }*/
     }
 }
