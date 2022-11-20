@@ -9,6 +9,11 @@
     <string name="name">Name</string>
     <string name="please_select_a_driver">Please select a driver</string>
     <string name="please_select_a_robot_configuration">Please select a robot configuration</string>
+    <string name="jump">Jump</string>
+    <string name="shortcut">Shortcut</string>
+    <string name="walls">Walls</string>
+    <string name="solution">Solution</string>
+    <string name="full_maze">Full Maze</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>

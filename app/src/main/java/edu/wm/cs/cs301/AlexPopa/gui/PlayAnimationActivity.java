@@ -11,6 +11,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manual_maze);
+        setContentView(R.layout.driver_maze);
     }
 }
