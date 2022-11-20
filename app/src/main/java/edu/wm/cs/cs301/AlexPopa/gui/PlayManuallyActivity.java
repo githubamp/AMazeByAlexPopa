@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.wm.cs.cs301.AlexPopa.R;
 
@@ -23,6 +24,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
         bar.setDisplayUseLogoEnabled(true);
         bar.setDisplayShowHomeEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
+
+        /*ConstraintLayout parentLayout = (ConstraintLayout) findViewById(R.id.parent);
+        MazePanel mazePanel = new MazePanel(this);
+        //mazePanel.measure(500, 500);
+        parentLayout.addView(mazePanel, 0);*/
+
         ImageButton up = (ImageButton) findViewById(R.id.Up);
         up.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){

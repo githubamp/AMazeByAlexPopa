@@ -44,7 +44,8 @@ public class GeneratingActivity extends AppCompatActivity {
                         wait.show();
                         shown = true;
                     }
-                    try {Thread.sleep(50);
+                    try {
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

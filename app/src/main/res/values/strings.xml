@@ -14,6 +14,10 @@
     <string name="walls">Walls</string>
     <string name="solution">Solution</string>
     <string name="full_maze">Full Maze</string>
+    <string name="down">Down</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="up">Up</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>
