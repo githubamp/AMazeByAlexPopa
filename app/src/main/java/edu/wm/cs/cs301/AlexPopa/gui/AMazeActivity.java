@@ -18,12 +18,13 @@ public class AMazeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intentG = new Intent(this, GeneratingActivity.class);
+
         SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
         Button explore = (Button) findViewById(R.id.explore);
                 explore.setOnClickListener(new View.OnClickListener(){
                     public void onClick(View view){
-                        //intentG.putExtra("Skill level", ""++index);
+                        Intent intentG = new Intent(view.getContext(), GeneratingActivity.class);
+                        intentG.putExtra("Skill level", seekbar.getProgress());
                         startActivity(intentG);
                     }
                 });
@@ -35,5 +36,12 @@ public class AMazeActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.generator_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
+    }
+
+    public void explore(View button){
+        Intent intentG = new Intent(this, GeneratingActivity.class);
+        SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
+        intentG.putExtra("Skill level", seekbar.getProgress());
+        startActivity(intentG);
     }
 }
