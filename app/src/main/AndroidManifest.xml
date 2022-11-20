@@ -23,7 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.GeneratingActivity">
+            android:name=".gui.GeneratingActivity"
+            android:parentActivityName=".gui.AMazeActivity">
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".gui.AMazeActivity"/>
         </activity>
     </application>
 
