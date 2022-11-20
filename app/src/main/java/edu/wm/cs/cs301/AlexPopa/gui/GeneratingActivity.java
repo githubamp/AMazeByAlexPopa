@@ -1,4 +1,17 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
-public class GeneratingActivity {
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import edu.wm.cs.cs301.AlexPopa.R;
+
+public class GeneratingActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.generating);
+    }
+
 }

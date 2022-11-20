@@ -6,6 +6,7 @@
     <string name="maze_generator">Maze Generator</string>
     <string name="revisit">Revisit</string>
     <string name="explore">Explore</string>
+    <string name="name">Name</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>
