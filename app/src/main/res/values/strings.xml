@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">AMazeByAlexPopa</string>
+    <string name="welcome_to_the_labyrinth">Welcome to the Labyrinth!</string>
+    <string name="please_select_a_difficulty_from_0_15">Please select a difficulty from 0-15</string>
+    <string name="would_you_like_rooms_in_the_maze">Would you like rooms in the maze?</string>
+    <string name="maze_generator">Maze Generator</string>
+    <string name="revisit">Revisit</string>
+    <string name="explore">Explore</string>
+    <string-array name="yesno_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="generator_array">
+        <item>DFS</item>
+        <item>PRIM</item>
+        <item>BORUVKA</item>
+    </string-array>
 </resources>

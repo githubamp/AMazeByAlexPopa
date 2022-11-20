@@ -1,10 +1,12 @@
-package edu.wm.cs.cs301.AlexPopa;
-
-import androidx.appcompat.app.AppCompatActivity;
+package edu.wm.cs.cs301.AlexPopa.gui;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import edu.wm.cs.cs301.AlexPopa.R;
+
+public class AMazeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
