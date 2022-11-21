@@ -20,6 +20,60 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_maze);
 
+        Button wall = (Button) findViewById(R.id.walls);
+        wall.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
+                walls.show();
+                Log.v("Button", "Walls pressed");
+            }
+        });
+
+        Button fmaze = (Button) findViewById(R.id.fullmaze);
+        fmaze.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
+                full.show();
+                Log.v("Button", "Full maze pressed");
+            }
+        });
+
+        Button sol = (Button) findViewById(R.id.solution);
+        sol.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
+                solut.show();
+                Log.v("Button", "Solution pressed");
+            }
+        });
+
+        Button small = (Button) findViewById(R.id.smaller);
+        small.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
+                sma.show();
+                Log.v("Button", "Smaller pressed");
+            }
+        });
+
+        Button big = (Button) findViewById(R.id.bigger);
+        big.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
+                b.show();
+                Log.v("Button", "Bigger pressed");
+            }
+        });
+
+        Button sp = (Button) findViewById(R.id.start);
+        sp.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar st = Snackbar.make(findViewById(android.R.id.content), "Start/pause pressed", 500);
+                st.show();
+                Log.v("Button", "Start/pause pressed");
+            }
+        });
+
         Button win = (Button) findViewById(R.id.go2winning);
         win.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){

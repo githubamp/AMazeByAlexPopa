@@ -32,6 +32,51 @@ public class PlayManuallyActivity extends AppCompatActivity {
         MazePanel mazePanel = new MazePanel(this);
         parentLayout.addView(mazePanel, 0);
 
+        Button wall = (Button) findViewById(R.id.Walls);
+        wall.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
+                walls.show();
+                Log.v("Button", "Walls pressed");
+            }
+        });
+
+        Button fmaze = (Button) findViewById(R.id.Maze);
+        fmaze.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
+                full.show();
+                Log.v("Button", "Full maze pressed");
+            }
+        });
+
+        Button sol = (Button) findViewById(R.id.Solution);
+        sol.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
+                solut.show();
+                Log.v("Button", "Solution pressed");
+            }
+        });
+
+        Button small = (Button) findViewById(R.id.button);
+        small.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
+                sma.show();
+                Log.v("Button", "Smaller pressed");
+            }
+        });
+
+        Button big = (Button) findViewById(R.id.button2);
+        big.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
+                b.show();
+                Log.v("Button", "Bigger pressed");
+            }
+        });
+
         ImageButton up = (ImageButton) findViewById(R.id.Up);
         up.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -87,7 +132,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 Snackbar cut = Snackbar.make(findViewById(android.R.id.content), "Pressed shortcut", 500);
                 cut.show();
-                Log.v("Cheats", "Cut pressed");
+                Log.v("Cheats", "Shortcut pressed");
                 Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                 intentG.putExtra("Steps taken", count);
                 intentG.putExtra("Shortest steps", 500);
