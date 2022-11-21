@@ -17,69 +17,100 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.snackbar.Snackbar;
 
 import edu.wm.cs.cs301.AlexPopa.R;
-
+/**
+ * author @ALEX POPA
+ */
 public class GeneratingActivity extends AppCompatActivity {
 
+    /**
+     * when the activity is created
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set the screen to the generating xml
         setContentView(R.layout.generating);
+        //store the current context for later use when it cannot be easily accessed
         Context context = this;
-        ProgressBar loading = (ProgressBar) findViewById(R.id.loading);
-        ActionBar bar = getSupportActionBar();
-        bar.setDisplayUseLogoEnabled(true);
-        bar.setDisplayShowHomeEnabled(true);
-        bar.setDisplayHomeAsUpEnabled(true);
 
+        //progressbar for how much of the maze has generated
+        ProgressBar loading = (ProgressBar) findViewById(R.id.loading);
+
+        //spinner to allow the user to choose what driver they would like for the maze
         Spinner spinner = (Spinner) findViewById(R.id.Driver);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.driver_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        //spinner to allow the user to choose what sensor configuration they would like for the robot (useless if not used)
         Spinner spinner2 = (Spinner) findViewById(R.id.Sensors);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.configuration_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
 
+        //start a thread to represent the maze generating
         Thread load = new Thread(new Runnable(){
+            //variable to keep track if a Snackbar has shown (don't want to show multiple of the same message)
             boolean shown = false;
+
+            /**
+             * run the thread to load the progressbar
+             */
             public void run(){
+                //while the progress bar isn't full
                 while(loading.getProgress() != loading.getMax()){
+                    //if someone has chosen a driver but the bar is still loading
                     if(!spinner.getSelectedItem().equals("Select:") && shown == false) {
+                        //make a pop up message
                         Snackbar wait = Snackbar.make(findViewById(android.R.id.content), "Please wait for the maze to finish generating", 2000);
                         wait.show();
+                        //makes sure the message doesn't show up again
                         shown = true;
                     }
                     try {
+                        //represents the maze generating by making the bar load by 1% every 50 milliseconds
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     loading.post(new Runnable() {
                         @Override
+                        /**
+                         * increment the progress bar by 1
+                         */
                         public void run() {
                             loading.incrementProgressBy(1);
                         }
                     });
                 }
+                //if the bar is finished loading and the user hasn't chosen a driver yet
                 if(spinner.getSelectedItem().equals("Select:")) {
+                    //make a pop up message asking to pick a driver
                     Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Please select a driver", 2000);
                     snackbar.show();
-
                 }
+                //boolean value to keep track of whether the user has chosen a driver and the progress bar is full
                 boolean done = false;
+                //while the progress bar is full, keep checking if the user has picked a driver
                 while(loading.getProgress() == loading.getMax() && done == false){
+                    //if manual is chosen
                     if(spinner.getSelectedItem().equals("Manual")){
                         done = true;
+                        //make an intent to go to PlayManuallyActivity and start it
                         Intent intentG = new Intent(context, PlayManuallyActivity.class);
                         startActivity(intentG);
+                    //if a robot driver was chosen
                     }else if (spinner.getSelectedItem().equals("Wall Follower") || (spinner.getSelectedItem().equals("Wizard"))){
                         done = true;
+                        //make an intent to go to PlayAnimationActivity and start it
                         Intent intentG = new Intent(context, PlayAnimationActivity.class);
+                        //pass along information regarding the driver and sensors used to PlayAnimationActivity
                         intentG.putExtra("Driver", (String) spinner.getSelectedItem());
                         intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
                         startActivity(intentG);
                     }
                     try {
+                        //thread sleeps as to not cause a loop that keeps going without pause
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -87,6 +118,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 }
             }
         });
+        //begin the thread
         load.start();
     }
 }
