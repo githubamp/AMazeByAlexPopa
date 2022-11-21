@@ -118,7 +118,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
         });
 
         Button jump = (Button) findViewById(R.id.Jump);
-        right.setOnClickListener(new View.OnClickListener(){
+        jump.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Snackbar j = Snackbar.make(findViewById(android.R.id.content), "Pressed jump", 500);
                 j.show();

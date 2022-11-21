@@ -25,17 +25,16 @@
         android:id="@+id/Maze"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="646dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/full_maze"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Solution"
-        app:layout_constraintHorizontal_bias="0.166"
-        app:layout_constraintStart_toEndOf="@+id/Walls"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/Solution"
@@ -152,7 +151,6 @@
         android:id="@+id/editTextTextPersonName10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
         android:ems="10"
@@ -160,9 +158,12 @@
         android:minHeight="48dp"
         android:text="Scale Map"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/Solution"
-        app:layout_constraintStart_toEndOf="@+id/Walls"
-        app:layout_constraintTop_toBottomOf="@+id/Walls" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Walls"
+        app:layout_constraintVertical_bias="0.015" />
 
     <Button
         android:id="@+id/button"
@@ -170,12 +171,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="63dp"
         android:layout_marginEnd="63dp"
-        android:layout_marginBottom="433dp"
         android:text="Smaller"
-        app:layout_constraintBottom_toTopOf="@+id/Jump"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button2"
@@ -188,6 +189,7 @@
         app:layout_constraintBottom_toTopOf="@+id/Right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
