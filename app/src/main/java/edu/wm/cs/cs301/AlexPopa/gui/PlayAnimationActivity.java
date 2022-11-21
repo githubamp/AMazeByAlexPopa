@@ -1,11 +1,13 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +21,18 @@ public class PlayAnimationActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driver_maze);
+
+        TextView left = (TextView) findViewById(R.id.LeftSensor);
+        left.setBackgroundColor(Color.GREEN);
+
+        TextView right = (TextView) findViewById(R.id.RightSensor);
+        right.setBackgroundColor(Color.GREEN);
+
+        TextView forward = (TextView) findViewById(R.id.Forward);
+        forward.setBackgroundColor(Color.GREEN);
+
+        TextView backward = (TextView) findViewById(R.id.Backward);
+        backward.setBackgroundColor(Color.GREEN);
 
         Button wall = (Button) findViewById(R.id.walls);
         wall.setOnClickListener(new View.OnClickListener(){

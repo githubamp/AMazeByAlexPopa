@@ -29,6 +29,7 @@
     <string name="congratulations">Congratulations!</string>
     <string name="you_traveled">You traveled</string>
     <string name="you_escaped_the_labyrinth">You escaped the labyrinth!</string>
+    <string name="sensors">Sensors</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>
