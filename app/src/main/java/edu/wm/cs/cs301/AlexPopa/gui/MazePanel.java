@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,33 +19,23 @@ public class MazePanel extends View {
 
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setFocusable(true);
-        map = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
+
+        map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
         canvas = new Canvas(map);
-        //canvas = new Canvas();
         paint = new Paint();
         drawManual();
     }
 
     public MazePanel(Context context){
         super(context);
-        setFocusable(true);
-
         map = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
         canvas = new Canvas(map);
-        //canvas = new Canvas();
-        //paint = new Paint();
-        //paint.setColor(Color.RED);
-        //drawManual(canvas, paint);
     }
 
     public void drawManual(){
         Paint paint = new Paint();
 
-        //Bitmap b = Bitmap.createBitmap(canvas.getWidth(), canvas.getWidth(), Bitmap.Config.ALPHA_8);
         Canvas c = new Canvas(map);
-
-        //c.drawRect(0, 0, c.getWidth(), c.getHeight()/2, paint);
 
         paint.setColor(Color.GRAY);
 
@@ -58,7 +49,6 @@ public class MazePanel extends View {
 
         c.drawCircle(c.getHeight()/2, c.getHeight()/2, 100, paint);
 
-        //c.drawCircle(300,300, 200, paint);
     }
 
     @Override
