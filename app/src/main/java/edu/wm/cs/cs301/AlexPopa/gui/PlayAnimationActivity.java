@@ -24,6 +24,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 intentG.putExtra("Steps taken", 500);
                 intentG.putExtra("Shortest steps", 500);
                 intentG.putExtra("Energy", 1000);
+                intentG.putExtra("Robot", "y");
                 startActivity(intentG);
             }
         });
@@ -35,6 +36,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 intentG.putExtra("Steps taken", 500);
                 intentG.putExtra("Shortest steps", 500);
                 intentG.putExtra("Energy", 3500);
+                intentG.putExtra("Robot", "y");
                 startActivity(intentG);
             }
         });

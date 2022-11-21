@@ -59,6 +59,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                 intentG.putExtra("Steps taken", count);
+                intentG.putExtra("Shortest steps", 500);
+                intentG.putExtra("Robot", "n");
                 startActivity(intentG);
             }
         });
