@@ -6,30 +6,82 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/Congratulations"
         android:layout_width="414dp"
         android:layout_height="63dp"
         android:layout_marginTop="38dp"
         android:layout_marginBottom="630dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Congratulations!"
+        android:text="@string/congratulations"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/Blurb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:layout_marginBottom="578dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="You escaped the labyrinth!"
+        android:minHeight="48dp"
+        android:text="@string/you_escaped_the_labyrinth"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+        app:layout_constraintTop_toBottomOf="@+id/Congratulations"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/Steps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="510dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="@string/you_traveled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Blurb"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/energyspent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="300dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Energy spent: "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Steps"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/shortest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="64dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="The shortest path length was"
+        app:layout_constraintBottom_toTopOf="@+id/energyspent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Steps" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

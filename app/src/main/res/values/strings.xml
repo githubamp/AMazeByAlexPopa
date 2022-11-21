@@ -18,6 +18,17 @@
     <string name="left">Left</string>
     <string name="right">Right</string>
     <string name="up">Up</string>
+    <string name="go2losing">Go2Losing</string>
+    <string name="go2winning">Go2Winning</string>
+    <string name="speed">Speed</string>
+    <string name="energy">Energy</string>
+    <string name="start_pause">Start/Pause</string>
+    <string name="smaller">Smaller</string>
+    <string name="bigger">Bigger</string>
+    <string name="scale_map">Scale Map</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="you_traveled">You traveled</string>
+    <string name="you_escaped_the_labyrinth">You escaped the labyrinth!</string>
     <string-array name="yesno_array">
         <item>Yes</item>
         <item>No</item>

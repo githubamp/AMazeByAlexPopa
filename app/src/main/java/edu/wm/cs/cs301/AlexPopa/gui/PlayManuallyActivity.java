@@ -25,10 +25,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
         bar.setDisplayShowHomeEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
 
-        /*ConstraintLayout parentLayout = (ConstraintLayout) findViewById(R.id.parent);
+        ConstraintLayout parentLayout = (ConstraintLayout) findViewById(R.id.parent);
         MazePanel mazePanel = new MazePanel(this);
-        //mazePanel.measure(500, 500);
-        parentLayout.addView(mazePanel, 0);*/
+        parentLayout.addView(mazePanel, 0);
 
         ImageButton up = (ImageButton) findViewById(R.id.Up);
         up.setOnClickListener(new View.OnClickListener(){
