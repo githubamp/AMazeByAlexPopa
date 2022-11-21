@@ -27,6 +27,7 @@ public class GeneratingActivity extends AppCompatActivity {
         bar.setDisplayUseLogoEnabled(true);
         bar.setDisplayShowHomeEnabled(true);
         bar.setDisplayHomeAsUpEnabled(true);
+
         Spinner spinner = (Spinner) findViewById(R.id.Driver);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.driver_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -35,6 +36,7 @@ public class GeneratingActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.configuration_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
+
         Thread load = new Thread(new Runnable(){
             boolean shown = false;
             public void run(){

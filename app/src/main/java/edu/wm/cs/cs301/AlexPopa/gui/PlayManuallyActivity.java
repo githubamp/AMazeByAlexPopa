@@ -2,6 +2,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -9,6 +10,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import edu.wm.cs.cs301.AlexPopa.R;
 
@@ -32,24 +35,39 @@ public class PlayManuallyActivity extends AppCompatActivity {
         ImageButton up = (ImageButton) findViewById(R.id.Up);
         up.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar u = Snackbar.make(findViewById(android.R.id.content), "Pressed up", 500);
+                u.show();
+                Log.v("Direction", "Up pressed");
                 count++;
             }
         });
+
         ImageButton down = (ImageButton) findViewById(R.id.Down);
         down.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar d = Snackbar.make(findViewById(android.R.id.content), "Pressed down", 500);
+                d.show();
+                Log.v("Direction", "Down pressed");
                 count++;
             }
         });
+
         ImageButton left = (ImageButton) findViewById(R.id.Left);
         left.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar l = Snackbar.make(findViewById(android.R.id.content), "Pressed left", 500);
+                l.show();
+                Log.v("Direction", "Left pressed");
                 count++;
             }
         });
+
         ImageButton right = (ImageButton) findViewById(R.id.Right);
         right.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar r = Snackbar.make(findViewById(android.R.id.content), "Pressed right", 500);
+                r.show();
+                Log.v("Direction", "Right pressed");
                 count++;
             }
         });
@@ -57,6 +75,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
         Button jump = (Button) findViewById(R.id.Jump);
         right.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar j = Snackbar.make(findViewById(android.R.id.content), "Pressed jump", 500);
+                j.show();
+                Log.v("Direction", "Jump pressed");
                 count++;
             }
         });
@@ -64,6 +85,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
         Button shortcut = (Button) findViewById(R.id.Shortcut);
         shortcut.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                Snackbar cut = Snackbar.make(findViewById(android.R.id.content), "Pressed shortcut", 500);
+                cut.show();
+                Log.v("Cheats", "Cut pressed");
                 Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                 intentG.putExtra("Steps taken", count);
                 intentG.putExtra("Shortest steps", 500);
