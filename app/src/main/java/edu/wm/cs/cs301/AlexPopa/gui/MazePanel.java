@@ -96,10 +96,10 @@ public class MazePanel extends View {
         Path wall1 = new Path();
         wall1.reset();
         //starting point
-        wall1.moveTo(100, c.getHeight());
-        wall1.lineTo(100, 400);
-        wall1.lineTo(400, 100);
-        wall1.lineTo(400, 300);
+        wall1.moveTo(0, c.getHeight());
+        wall1.lineTo(0, 400);
+        wall1.lineTo(300, 100);
+        wall1.lineTo(300, 300);
         //close the shape
         wall1.close();
 
@@ -113,10 +113,10 @@ public class MazePanel extends View {
         Path wall2 = new Path();
         wall2.reset();
         //starting point
-        wall2.moveTo(c.getWidth()-100, c.getHeight());
-        wall2.lineTo(c.getWidth()-100, 400);
-        wall2.lineTo(c.getWidth()-300, 100);
-        wall2.lineTo(500, 300);
+        wall2.moveTo(c.getWidth(), c.getHeight());
+        wall2.lineTo(c.getWidth(), 400);
+        wall2.lineTo(c.getWidth() - 300, 100);
+        wall2.lineTo(c.getWidth() - 300, 300);
         //close the shape
         wall2.close();
 
