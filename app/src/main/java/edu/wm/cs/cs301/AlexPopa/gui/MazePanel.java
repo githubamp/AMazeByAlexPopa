@@ -19,13 +19,16 @@ public class MazePanel extends View {
 
     public MazePanel(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
         canvas = new Canvas(map);
         paint = new Paint();
     }
 
     public void drawManual(){
+        map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
+        canvas = new Canvas(map);
+        paint = new Paint();
+
         Canvas c = new Canvas(map);
 
         paint.setColor(Color.GRAY);
@@ -42,6 +45,11 @@ public class MazePanel extends View {
     }
 
     public void drawDriver(){
+
+        map = Bitmap.createBitmap(827, 827, Bitmap.Config.ARGB_8888); // this creates a MUTABLE bitmap
+        canvas = new Canvas(map);
+        paint = new Paint();
+
         Canvas c = new Canvas(map);
 
         paint.setColor(Color.GRAY);
@@ -57,6 +65,7 @@ public class MazePanel extends View {
     protected void onDraw(Canvas canvas) {
         if(getContext() instanceof PlayManuallyActivity){
             drawManual();
+
         }else{
             drawDriver();
         }
