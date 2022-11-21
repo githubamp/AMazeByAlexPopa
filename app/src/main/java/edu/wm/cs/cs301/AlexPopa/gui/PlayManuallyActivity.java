@@ -54,6 +54,13 @@ public class PlayManuallyActivity extends AppCompatActivity {
             }
         });
 
+        Button jump = (Button) findViewById(R.id.Jump);
+        right.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                count++;
+            }
+        });
+
         Button shortcut = (Button) findViewById(R.id.Shortcut);
         shortcut.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){

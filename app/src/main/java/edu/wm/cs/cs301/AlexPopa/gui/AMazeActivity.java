@@ -27,6 +27,7 @@ public class AMazeActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.generator_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
+
         Button explore = (Button) findViewById(R.id.explore);
         explore.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -34,6 +35,19 @@ public class AMazeActivity extends AppCompatActivity {
                 intentG.putExtra("Skill level", seekbar.getProgress());
                 intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
                 intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
+                intentG.putExtra("Seed", Math.random()+100);
+                startActivity(intentG);
+            }
+        });
+
+        Button revisit = (Button) findViewById(R.id.revisit);
+        revisit.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Intent intentG = new Intent(view.getContext(), GeneratingActivity.class);
+                intentG.putExtra("Skill level", seekbar.getProgress());
+                intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
+                intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
+                intentG.putExtra("Seed", Math.random()+100);
                 startActivity(intentG);
             }
         });
