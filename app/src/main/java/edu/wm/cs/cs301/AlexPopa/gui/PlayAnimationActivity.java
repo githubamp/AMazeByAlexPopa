@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -29,6 +30,36 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set the screen to the driver_maze xml
         setContentView(R.layout.driver_maze);
+
+        //seekbar that represents difficulty
+        SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
+
+        speedbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             *  following two methods are just needed to override but do noting
+             */
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            /**
+             *  on change of the speed seekbar
+             */
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //make a log statement
+                Log.v("Seekbar", "Speed pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
+                speed.show();
+            }
+        });
 
         //make the text representing the left sensor green to represent that it's functional
         //turn it red when it is not

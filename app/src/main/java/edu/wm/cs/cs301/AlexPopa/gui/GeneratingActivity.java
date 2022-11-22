@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,11 +43,41 @@ public class GeneratingActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             *  on touch of the driver spinner
+             */
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //make a log statement
+                Log.v("Spinner", "Driver pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar drive = Snackbar.make(findViewById(android.R.id.content), "Driver pressed", 500);
+                drive.show();
+                return false;
+            }
+        });
+
         //spinner to allow the user to choose what sensor configuration they would like for the robot (useless if not used)
         Spinner spinner2 = (Spinner) findViewById(R.id.Sensors);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.configuration_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
+
+        spinner2.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             *  on touch of the configuration spinner
+             */
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //make a log statement
+                Log.v("Spinner", "Configuration pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar config = Snackbar.make(findViewById(android.R.id.content), "Configuration pressed", 500);
+                config.show();
+                return false;
+            }
+        });
 
         //start a thread to represent the maze generating
         Thread load = new Thread(new Runnable(){

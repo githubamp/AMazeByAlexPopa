@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,6 +33,33 @@ public class AMazeActivity extends AppCompatActivity {
         //seekbar that represents difficulty
         SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
 
+        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             *  following two methods are just needed to override but do noting
+             */
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            /**
+             *  on change of the difficulty seekbar
+             */
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //make a log statement
+                Log.v("Seekbar", "Difficulty pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar seek = Snackbar.make(findViewById(android.R.id.content), "Difficulty pressed", 500);
+                seek.show();
+            }
+        });
+
         //spinner that accepts whether someone wants rooms in the maze or not
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         //specifying the choices
@@ -39,11 +67,41 @@ public class AMazeActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             *  on touch of the yes/no spinner
+             */
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //make a log statement
+                Log.v("Spinner", "Yes/no pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar spin1 = Snackbar.make(findViewById(android.R.id.content), "Yes/no pressed", 500);
+                spin1.show();
+                return false;
+            }
+        });
+
         //spinner that accepts which maze type they want to generate
         Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.generator_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
+
+        spinner2.setOnTouchListener(new View.OnTouchListener() {
+            /**
+             *  on touch of the generator spinner
+             */
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //make a log statement
+                Log.v("Spinner", "generator pressed");
+                //make a message appear from the bottom of the screen
+                Snackbar spin2 = Snackbar.make(findViewById(android.R.id.content), "Generator pressed", 500);
+                spin2.show();
+                return false;
+            }
+        });
 
         //button to start the game
         Button explore = (Button) findViewById(R.id.explore);
