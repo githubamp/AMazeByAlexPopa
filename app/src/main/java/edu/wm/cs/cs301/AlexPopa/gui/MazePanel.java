@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.ColorUtils;
 
 /**
  * author @ALEX POPA
@@ -147,7 +148,8 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void commit() {
-
+        //draw the bitmap
+        canvas.drawBitmap(map, 0,0, paint);
     }
 
     /**
@@ -173,7 +175,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void setColor(int argb) {
-
+        paint.setColor(argb);
     }
 
     /**
@@ -183,7 +185,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public int getColor() {
-        return 0;
+        return paint.getColor();
     }
 
     /**
@@ -198,7 +200,28 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addBackground(float percentToExit) {
+        map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(map);
+        int color = ColorUtils.blendARGB(Color.BLACK, Color.YELLOW, percentToExit);
+        int color2 = ColorUtils.blendARGB(Color.GRAY, Color.GREEN, percentToExit);
 
+
+        //create a temporary canvas
+        Canvas c = new Canvas(map);
+
+        //set color to gray
+        paint.setColor(color);
+
+        //draw gray rectangle on top of the screen
+        c.drawRect(0, 0, c.getWidth(), c.getHeight()/2, paint);
+
+        //set color to black
+        paint.setColor(color2);
+
+        //draw black rectangle on bottom of the screen
+        c.drawRect(0, c.getHeight()/2, c.getWidth(), c.getHeight(), paint);
+
+        //LOOK AT BLENDARGB METHOD
     }
 
     /**
@@ -215,7 +238,8 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
-
+        canvas.drawRect(x, y, width, height, paint);
+        canvas.drawBitmap(map, 0,0, paint);
     }
 
     /**
@@ -235,7 +259,19 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+        Path poly = new Path();
+        poly.reset();
+        //starting point
+        poly.moveTo(c.getWidth(), c.getHeight());
+        poly.lineTo(c.getWidth(), 400);
+        poly.lineTo(c.getWidth() - 300, 100);
+        poly.lineTo(c.getWidth() - 300, 300);
+        //close the shape
+        poly.close();
 
+        //draw the polygon
+        canvas.drawPath(wall2, paint);
+        canvas.drawRect(x, y, width, height, paint);
     }
 
     /**
