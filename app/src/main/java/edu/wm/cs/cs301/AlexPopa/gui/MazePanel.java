@@ -139,7 +139,7 @@ public class MazePanel extends View implements P7PanelF22{
             drawDriver();
         }
         //draw the bitmap
-        canvas.drawBitmap(map, 0,0, paint);
+        commit();
     }
 
     /**
@@ -162,7 +162,11 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public boolean isOperational() {
-        return false;
+        if(getContext() instanceof PlayManuallyActivity || getContext() instanceof PlayAnimationActivity){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -238,6 +242,9 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledRectangle(int x, int y, int width, int height) {
+        //make sure paint knows to fill in the shapes
+        paint.setStyle(Paint.Style.FILL);
+
         canvas.drawRect(x, y, width, height, paint);
         canvas.drawBitmap(map, 0,0, paint);
     }
@@ -259,19 +266,25 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+        //make sure paint knows to fill in the shapes
+        paint.setStyle(Paint.Style.FILL);
+
         Path poly = new Path();
         poly.reset();
+
         //starting point
-        poly.moveTo(c.getWidth(), c.getHeight());
-        poly.lineTo(c.getWidth(), 400);
-        poly.lineTo(c.getWidth() - 300, 100);
-        poly.lineTo(c.getWidth() - 300, 300);
+        poly.moveTo(xPoints[0], yPoints[0]);
+
+        //make all the lines of the polygon
+        for(int i = 1; i < nPoints; i++){
+            poly.lineTo(xPoints[i], yPoints[i]);
+        }
+
         //close the shape
         poly.close();
 
         //draw the polygon
-        canvas.drawPath(wall2, paint);
-        canvas.drawRect(x, y, width, height, paint);
+        canvas.drawPath(poly, paint);
     }
 
     /**
@@ -292,7 +305,25 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+        //make sure paint knows to fill in the shapes
+        paint.setStyle(Paint.Style.FILL);
 
+        Path poly = new Path();
+        poly.reset();
+
+        //starting point
+        poly.moveTo(xPoints[0], yPoints[0]);
+
+        //make all the lines of the polygon
+        for(int i = 1; i < nPoints; i++){
+            poly.lineTo(xPoints[i], yPoints[i]);
+        }
+
+        //close the shape
+        poly.close();
+
+        //draw the polygon
+        canvas.drawPath(poly, paint);
     }
 
     /**
@@ -308,7 +339,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addLine(int startX, int startY, int endX, int endY) {
-
+        canvas.drawLine(startX, startY, endX, endY, paint);
     }
 
     /**
@@ -326,7 +357,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledOval(int x, int y, int width, int height) {
-
+        canvas.drawOval(x, y, width, height, paint);
     }
 
     /**
@@ -357,7 +388,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-
+        canvas.drawArc(x, y, width, height, startAngle, arcAngle, true, paint);
     }
 
     /**
@@ -370,7 +401,7 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addMarker(float x, float y, String str) {
-
+        canvas.drawText(str, x, y, paint);
     }
 
     /**
