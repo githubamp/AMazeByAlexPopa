@@ -8,6 +8,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -23,6 +24,7 @@ public class MazePanel extends View implements P7PanelF22{
     private Canvas canvas;
     private Bitmap map;
     private Paint paint;
+    private Typeface typeface;
 
     /**
      * Constructor that allows the MazePanel to be represented on the xml file
@@ -467,6 +469,11 @@ public class MazePanel extends View implements P7PanelF22{
     @Override
     public void addMarker(float x, float y, String str) {
         canvas.drawText(str, x, y, paint);
+    }
+
+    public void setFont(String font, boolean b, boolean i){
+        typeface = Typeface.create(font, Typeface.NORMAL);
+        paint.setTypeface(typeface);
     }
 
     /**
