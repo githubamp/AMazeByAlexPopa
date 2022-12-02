@@ -34,6 +34,8 @@ public class MazePanel extends View implements P7PanelF22{
         map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(map);
         paint = new Paint();
+
+        myTestImage(canvas);
     }
 
     /**
@@ -138,7 +140,6 @@ public class MazePanel extends View implements P7PanelF22{
         //if the method is called when a robot driver is going through the maze
             drawDriver();
         }*/
-        myTestImage(canvas);
 
         //draw the bitmap
         canvas.drawBitmap(map, 0,0, paint);
@@ -149,12 +150,14 @@ public class MazePanel extends View implements P7PanelF22{
         map = Bitmap.createBitmap(827, 827, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(map);
 
+        addBackground(50);
+
         //make the paint color gray, and make sure it knows to fill in the shapes
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.YELLOW);
+        paint.setColor(Color.MAGENTA);
 
         //draw gray rectangle on top of the screen
-        addFilledRectangle(0, 0, c.getWidth(), c.getHeight() / 2);
+        addFilledRectangle(300, 300, c.getWidth(), c.getHeight() / 2);
 
         //set color to black
         paint.setColor(Color.RED);
@@ -246,25 +249,34 @@ public class MazePanel extends View implements P7PanelF22{
     public void addBackground(float percentToExit) {
         map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(map);
-        int color = ColorUtils.blendARGB(Color.BLACK, Color.YELLOW, percentToExit);
-        int color2 = ColorUtils.blendARGB(Color.GRAY, Color.GREEN, percentToExit);
+
+        //int color = ColorUtils.blendARGB(Color.BLACK, Color.YELLOW, percentToExit);
+        //int color2 = ColorUtils.blendARGB(Color.GRAY, Color.GREEN, percentToExit);
 
         //create a temporary canvas
         Canvas c = new Canvas(map);
 
         //set color to gray
-        paint.setColor(color);
+        paint.setColor(Color.GRAY);
+
+        LinearGradient grad1 = new LinearGradient(0, 0, c.getWidth(), c.getHeight()/2, Color.GRAY, Color.GREEN, Shader.TileMode.DECAL);
+        paint.setShader(grad1);
 
         //draw gray rectangle on top of the screen
         c.drawRect(0, 0, c.getWidth(), c.getHeight()/2, paint);
 
+        paint.setShader(null);
+
         //set color to black
-        paint.setColor(color2);
+        paint.setColor(Color.BLACK);
+
+        LinearGradient grad2 = new LinearGradient(0, c.getHeight()/2, c.getWidth(), c.getHeight(), Color.BLACK, Color.YELLOW, Shader.TileMode.DECAL);
+        paint.setShader(grad2);
 
         //draw black rectangle on bottom of the screen
         c.drawRect(0, c.getHeight()/2, c.getWidth(), c.getHeight(), paint);
 
-        //LOOK AT BLENDARGB METHOD
+        paint.setShader(null);
     }
 
     /**
