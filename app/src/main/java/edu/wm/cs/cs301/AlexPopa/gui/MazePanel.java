@@ -131,15 +131,55 @@ public class MazePanel extends View implements P7PanelF22{
     @Override
     protected void onDraw(Canvas canvas) {
         //if this method is called when the user is going through the maze
-        if(getContext() instanceof PlayManuallyActivity){
+        /*if(getContext() instanceof PlayManuallyActivity){
             drawManual();
 
         }else{
         //if the method is called when a robot driver is going through the maze
             drawDriver();
-        }
+        }*/
+        myTestImage(canvas);
+
         //draw the bitmap
-        commit();
+        canvas.drawBitmap(map, 0,0, paint);
+    }
+
+    void myTestImage(Canvas c) {
+        //create a bitmap that is 315 dp x 315 dp and a canvas to go with it
+        map = Bitmap.createBitmap(827, 827, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(map);
+
+        //make the paint color gray, and make sure it knows to fill in the shapes
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.YELLOW);
+
+        //draw gray rectangle on top of the screen
+        addFilledRectangle(0, 0, c.getWidth(), c.getHeight() / 2);
+
+        //set color to black
+        paint.setColor(Color.RED);
+
+        //draw black rectangle on bottom of the screen
+        addFilledOval(c.getWidth()/2, c.getHeight() / 2, 100, 100);
+
+        //set color to black
+        paint.setColor(Color.GREEN);
+
+        //draw black rectangle on bottom of the screen
+        addFilledOval(100, c.getHeight() / 2, 30, 30);
+
+        //set color to black
+        paint.setColor(Color.BLUE);
+
+        //draw black rectangle on bottom of the screen
+        int[] x = new int[]{30, 100, 400};
+        int[] y = new int[]{70, 200, 500};
+        addFilledPolygon(x, y, 3);
+
+        //set color to black
+        paint.setColor(Color.BLACK);
+
+        addLine(400, 400, 500, 300);
     }
 
     /**
@@ -208,7 +248,6 @@ public class MazePanel extends View implements P7PanelF22{
         canvas = new Canvas(map);
         int color = ColorUtils.blendARGB(Color.BLACK, Color.YELLOW, percentToExit);
         int color2 = ColorUtils.blendARGB(Color.GRAY, Color.GREEN, percentToExit);
-
 
         //create a temporary canvas
         Canvas c = new Canvas(map);
