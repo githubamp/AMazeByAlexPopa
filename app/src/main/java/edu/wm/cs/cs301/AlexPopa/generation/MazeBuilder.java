@@ -3,7 +3,7 @@ package edu.wm.cs.cs301.AlexPopa.generation;
 import java.util.logging.Logger;
 
 import edu.wm.cs.cs301.AlexPopa.generation.SingleRandom;
-import gui.Constants;
+import edu.wm.cs.cs301.AlexPopa.gui.Constants;
 
 
 /**

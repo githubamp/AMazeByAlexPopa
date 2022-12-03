@@ -1,5 +1,7 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import static edu.wm.cs.cs301.AlexPopa.generation.Order.Builder.*;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.snackbar.Snackbar;
 
 import edu.wm.cs.cs301.AlexPopa.R;
+import edu.wm.cs.cs301.AlexPopa.generation.DefaultOrder;
+import edu.wm.cs.cs301.AlexPopa.generation.MazeFactory;
+import edu.wm.cs.cs301.AlexPopa.generation.Order;
+
 /**
  * author @ALEX POPA
  */
@@ -104,15 +110,18 @@ public class GeneratingActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    loading.post(new Runnable() {
+
+                    Thread build = factory.getBuild();
+
+                    /*loading.post(new Runnable() {
                         @Override
                         /**
                          * increment the progress bar by 1
                          */
-                        public void run() {
+                       /* public void run() {
                             loading.incrementProgressBy(1);
                         }
-                    });
+                    });*/
                 }
                 //if the bar is finished loading and the user hasn't chosen a driver yet
                 if(spinner.getSelectedItem().equals("Select:")) {
@@ -151,5 +160,14 @@ public class GeneratingActivity extends AppCompatActivity {
         });
         //begin the thread
         load.start();
+    }
+
+    public void update(){
+        Information info = Information.getInformation();
+        MazeFactory factory = new MazeFactory();
+        Order order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
+        factory.order(order);
+
+
     }
 }

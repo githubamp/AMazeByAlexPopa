@@ -4,6 +4,8 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import static edu.wm.cs.cs301.AlexPopa.gui.ColorTheme.MazeColors.*;
 import static edu.wm.cs.cs301.AlexPopa.gui.P7PanelF22.P7RenderingHints.*;
 
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.fonts.Font;
 
 import edu.wm.cs.cs301.AlexPopa.generation.CardinalDirection;
@@ -33,7 +35,7 @@ public class CompassRose {
      * so this is why it is fixed by the constructor.
      * It could be made flexible with getters/setters if needed.
      */
-    private final Font markerFont;
+    private final String markerFont;
     
     // The scaler of the rose.  
     // The bordering circle will be this portion of the component dimensions.
@@ -50,12 +52,14 @@ public class CompassRose {
     private int centerY; // y coordinate of center point
     private int size; // size of compass rose
     private CardinalDirection currentDir; // current direction in maze
+
+	private String font;
     
     /**
      * Construct a compass rose with the default settings.
      */
     public CompassRose() {
-        this(0.9, 1.7, Font.font("Serif-PLAIN-16"));
+        this(0.9, 1.7, ("Serif-PLAIN-16"));
     }
      
     /**
@@ -66,7 +70,7 @@ public class CompassRose {
      *                      will position the markers outside of the bordering circle.
      * @param markerFont    The font used for the markers.
      */
-    public CompassRose(double scaler, double markerRadius, Font markerFont) {
+    public CompassRose(double scaler, double markerRadius, String markerFont) {
         this.scaler = scaler;
         this.markerRadius = markerRadius;
         this.markerFont = markerFont;
@@ -321,13 +325,15 @@ public class CompassRose {
 	 * @param str The string to draw
 	 */
     private void drawMarker(MazePanel g2, float x, float y, String str) {
-        GlyphVector gv = markerFont.createGlyphVector(g2.getFontRenderContext(), str);
+        g2.setFont(font, false, false);
+		g2.addMarker(x, y, str);
+		/*GlyphVector gv = markerFont.createGlyphVector(g2.getFontRenderContext(), str);
         Rectangle2D rect = gv.getVisualBounds();
         // need to update x, y by half of rectangle width, height
         // to serve as x, y coordinates for drawing a GlyphVector
         x -= rect.getWidth() / 2;
         y += rect.getHeight() / 2;
         
-        g2.drawGlyphVector(gv, x, y);
+        g2.drawGlyphVector(gv, x, y);*/
     }
 }

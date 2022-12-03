@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 
 import edu.wm.cs.cs301.AlexPopa.generation.BSPNode;
 import edu.wm.cs.cs301.AlexPopa.generation.Wall;
-import gui.MazeFileWriter;
+import edu.wm.cs.cs301.AlexPopa.gui.MazeFileWriter;
 
 /**
  * A leaf node for a tree of BSPNodes. It carries a list of walls. 

@@ -59,6 +59,11 @@ public class MazeFactory implements Factory {
 		}
 		return true ;
 	}
+
+	public Thread getBuild(){
+		return buildThread;
+	}
+
 	@Override
 	public void cancel() {
 		LOGGER.fine("Received call to cancel current order");

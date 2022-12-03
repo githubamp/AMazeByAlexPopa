@@ -14,7 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Random;
+
 import edu.wm.cs.cs301.AlexPopa.R;
+import edu.wm.cs.cs301.AlexPopa.generation.Order;
 
 /**
  * author @ALEX POPA
@@ -59,6 +62,8 @@ public class AMazeActivity extends AppCompatActivity {
                 seek.show();
             }
         });
+
+        Information info = Information.getInformation();
 
         //spinner that accepts whether someone wants rooms in the maze or not
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -121,6 +126,21 @@ public class AMazeActivity extends AppCompatActivity {
                 intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
                 intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
                 intentG.putExtra("Seed", Math.random()+100);
+                info.setSkill(seekbar.getProgress());
+                if(spinner.getSelectedItem() == "Yes"){
+                    info.setRooms(true);
+                }else{
+                    info.setRooms(false);
+                }
+                if(spinner2.getSelectedItem() == "Manual"){
+                    info.setGen(Order.Builder.DFS);
+                }else if(spinner2.getSelectedItem() == "Prim"){
+                    info.setGen(Order.Builder.Prim);
+                }else{
+                    info.setGen(Order.Builder.Boruvka);
+                }
+                Random rnd = new Random();
+                info.setSeed(rnd.nextInt(86422));
                 //start GeneratingActivity
                 startActivity(intentG);
             }

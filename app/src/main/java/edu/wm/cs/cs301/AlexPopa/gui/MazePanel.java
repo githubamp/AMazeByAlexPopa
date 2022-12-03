@@ -373,7 +373,7 @@ public class MazePanel extends View implements P7PanelF22{
     @Override
     public void addPolygon(int[] xPoints, int[] yPoints, int nPoints) {
         //make sure paint knows to fill in the shapes
-        paint.setStyle(Paint.Style.FILL);
+        paint.setStyle(Paint.Style.STROKE);
 
         Path poly = new Path();
         poly.reset();
