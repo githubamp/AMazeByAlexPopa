@@ -97,8 +97,6 @@ public class GeneratingActivity extends AppCompatActivity {
              */
             public void run(){
 
-                update(loading);
-
                 //while the progress bar isn't full
                 while(loading.getProgress() != loading.getMax()){
                     //if someone has chosen a driver but the bar is still loading
@@ -160,6 +158,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 }
             }
         });
+        update(loading);
         //begin the thread
         load.start();
     }
@@ -172,24 +171,17 @@ public class GeneratingActivity extends AppCompatActivity {
                 System.out.println("here " + info.getSkill() + " " + info.getGen() + " " + info.getRooms() + " " + info.getSeed());
                 DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
                 factory.order(order);
-                factory.waitTillDelivered();
 
-                loading.post(new Runnable() {
-                    @Override
-                    /**
-                     * increment the progress bar by 1
-                     */
-                    public void run() {
-                        while(loading.getProgress() != loading.getMax()){
-                            loading.setProgress(order.getProgress());
-                            try {
-                                Thread.sleep(10);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
+                while(loading.getProgress() != loading.getMax()){
+                    loading.setProgress(order.getProgress());
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                });
+                }
+
+                factory.waitTillDelivered();
             }
         });
         up.start();
