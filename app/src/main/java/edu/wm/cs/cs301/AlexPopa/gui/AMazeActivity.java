@@ -132,9 +132,10 @@ public class AMazeActivity extends AppCompatActivity {
                 }else{
                     info.setRooms(false);
                 }
-                if(spinner2.getSelectedItem() == "Manual"){
+                System.out.println("spinner " + spinner2.getSelectedItem());
+                if(spinner2.getSelectedItem().equals("DFS")){
                     info.setGen(Order.Builder.DFS);
-                }else if(spinner2.getSelectedItem() == "Prim"){
+                }else if(spinner2.getSelectedItem().equals("PRIM")){
                     info.setGen(Order.Builder.Prim);
                 }else{
                     info.setGen(Order.Builder.Boruvka);

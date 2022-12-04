@@ -3,7 +3,6 @@
  */
 package edu.wm.cs.cs301.AlexPopa.generation;
 
-import edu.wm.cs.cs301.AlexPopa.generation.BSPNode;
 import edu.wm.cs.cs301.AlexPopa.gui.Constants;
 
 /**

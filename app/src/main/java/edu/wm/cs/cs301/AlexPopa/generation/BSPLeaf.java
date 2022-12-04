@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import edu.wm.cs.cs301.AlexPopa.generation.BSPNode;
-import edu.wm.cs.cs301.AlexPopa.generation.Wall;
 import edu.wm.cs.cs301.AlexPopa.gui.MazeFileWriter;
 
 /**

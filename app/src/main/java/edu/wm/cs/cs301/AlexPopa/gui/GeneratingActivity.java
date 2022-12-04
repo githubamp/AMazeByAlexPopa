@@ -32,6 +32,7 @@ public class GeneratingActivity extends AppCompatActivity {
     /**
      * when the activity is created
      */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,6 @@ public class GeneratingActivity extends AppCompatActivity {
         Context context = this;
 
         //progressbar for how much of the maze has generated
-        ProgressBar loading = (ProgressBar) findViewById(R.id.loading);
 
         //spinner to allow the user to choose what driver they would like for the maze
         Spinner spinner = (Spinner) findViewById(R.id.Driver);
@@ -63,6 +63,8 @@ public class GeneratingActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        ProgressBar loading = (ProgressBar) findViewById(R.id.loading);
 
         //spinner to allow the user to choose what sensor configuration they would like for the robot (useless if not used)
         Spinner spinner2 = (Spinner) findViewById(R.id.Sensors);
@@ -111,14 +113,13 @@ public class GeneratingActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Thread build = factory.getBuild();
-
+                    update(loading);
                     /*loading.post(new Runnable() {
                         @Override
                         /**
                          * increment the progress bar by 1
                          */
-                       /* public void run() {
+                        /*public void run() {
                             loading.incrementProgressBy(1);
                         }
                     });*/
@@ -159,15 +160,38 @@ public class GeneratingActivity extends AppCompatActivity {
             }
         });
         //begin the thread
+        update(loading);
         load.start();
     }
 
-    public void update(){
-        Information info = Information.getInformation();
-        MazeFactory factory = new MazeFactory();
-        Order order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
-        factory.order(order);
+    public void update(ProgressBar loading){
+        Thread up = new Thread(new Runnable(){
+            public void run(){
 
+                Information info = Information.getInformation();
+                MazeFactory factory = new MazeFactory();
+                System.out.println("here " + info.getSkill() + " " + info.getGen() + " " + info.getRooms() + " " + info.getSeed());
+                DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
+                factory.order(order);
 
+                loading.post(new Runnable() {
+                    @Override
+                    /**
+                     * increment the progress bar by 1
+                     */
+                    public void run() {
+                        while(loading.getProgress() == loading.getMax()){
+                            loading.setProgress(order.getProgress());
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        up.start();
     }
 }

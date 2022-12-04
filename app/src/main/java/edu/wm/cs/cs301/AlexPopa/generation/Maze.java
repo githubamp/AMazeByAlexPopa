@@ -4,8 +4,6 @@
 package edu.wm.cs.cs301.AlexPopa.generation;
 
 
-import edu.wm.cs.cs301.AlexPopa.generation.BSPNode;
-
 /**
  * A Maze encapsulates all relevant information about a maze 
  * that can be explored in a game. 

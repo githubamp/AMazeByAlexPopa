@@ -53,17 +53,16 @@ public class MazeFactory implements Factory {
 			builder = new MazeBuilderPrim();
 			buildOrder();
 			break;
+		case Boruvka:
+			builder = new MazeBuilderBoruvka();
+			buildOrder();
+			break;
 		default:
 			LOGGER.severe("Missing implementation for requested algorithm: " + order.getBuilder());
 			return false;
 		}
 		return true ;
 	}
-
-	public Thread getBuild(){
-		return buildThread;
-	}
-
 	@Override
 	public void cancel() {
 		LOGGER.fine("Received call to cancel current order");

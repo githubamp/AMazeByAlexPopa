@@ -1,7 +1,5 @@
 package edu.wm.cs.cs301.AlexPopa.generation;
 
-import edu.wm.cs.cs301.AlexPopa.generation.SingleRandom;
-
 /**
  * Represents absolute directions as for a map to match with the orientation
  * on the screen, i.e. North is no the top of the screen.
