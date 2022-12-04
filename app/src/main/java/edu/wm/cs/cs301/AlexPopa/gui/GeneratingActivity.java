@@ -96,6 +96,9 @@ public class GeneratingActivity extends AppCompatActivity {
              * run the thread to load the progressbar
              */
             public void run(){
+
+                update(loading);
+
                 //while the progress bar isn't full
                 while(loading.getProgress() != loading.getMax()){
                     //if someone has chosen a driver but the bar is still loading
@@ -112,8 +115,6 @@ public class GeneratingActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    update(loading);
                     /*loading.post(new Runnable() {
                         @Override
                         /**
@@ -160,19 +161,18 @@ public class GeneratingActivity extends AppCompatActivity {
             }
         });
         //begin the thread
-        update(loading);
         load.start();
     }
 
     public void update(ProgressBar loading){
         Thread up = new Thread(new Runnable(){
             public void run(){
-
                 Information info = Information.getInformation();
                 MazeFactory factory = new MazeFactory();
                 System.out.println("here " + info.getSkill() + " " + info.getGen() + " " + info.getRooms() + " " + info.getSeed());
                 DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
                 factory.order(order);
+                factory.waitTillDelivered();
 
                 loading.post(new Runnable() {
                     @Override
@@ -180,10 +180,10 @@ public class GeneratingActivity extends AppCompatActivity {
                      * increment the progress bar by 1
                      */
                     public void run() {
-                        while(loading.getProgress() == loading.getMax()){
+                        while(loading.getProgress() != loading.getMax()){
                             loading.setProgress(order.getProgress());
                             try {
-                                Thread.sleep(1);
+                                Thread.sleep(10);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

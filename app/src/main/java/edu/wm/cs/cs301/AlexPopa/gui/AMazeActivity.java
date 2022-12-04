@@ -127,7 +127,7 @@ public class AMazeActivity extends AppCompatActivity {
                 intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
                 intentG.putExtra("Seed", Math.random()+100);
                 info.setSkill(seekbar.getProgress());
-                if(spinner.getSelectedItem() == "Yes"){
+                if(spinner.getSelectedItem().equals("Yes")){
                     info.setRooms(true);
                 }else{
                     info.setRooms(false);
