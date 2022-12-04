@@ -182,6 +182,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 }
 
                 factory.waitTillDelivered();
+                info.setMaze(order.getMaze());
             }
         });
         up.start();

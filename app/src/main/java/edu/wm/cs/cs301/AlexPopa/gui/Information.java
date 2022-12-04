@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import static edu.wm.cs.cs301.AlexPopa.generation.Order.*;
 import static edu.wm.cs.cs301.AlexPopa.generation.Order.Builder.*;
 
+import edu.wm.cs.cs301.AlexPopa.generation.Maze;
 import edu.wm.cs.cs301.AlexPopa.generation.Order;
 
 public class Information {
@@ -11,6 +12,7 @@ public class Information {
     private int skill = 0, seed = 86422;
     private Order.Builder generator = DFS;
     private boolean rooms = true;
+    private Maze maze;
 
     //make the constructor private so that this class cannot be
     //instantiated
@@ -51,5 +53,13 @@ public class Information {
 
     public boolean getRooms(){
         return rooms;
+    }
+
+    public void setMaze(Maze m){
+        maze = m;
+    }
+
+    public Maze getMaze(){
+        return maze;
     }
 }
