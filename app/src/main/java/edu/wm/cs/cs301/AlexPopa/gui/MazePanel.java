@@ -144,7 +144,7 @@ public class MazePanel extends View implements P7PanelF22{
         }*/
 
         //draw the bitmap
-        addBackground(80);
+        //addBackground(80);
         commit();
         canvas.drawBitmap(map, 0,0, paint);
     }
@@ -279,7 +279,7 @@ public class MazePanel extends View implements P7PanelF22{
         //draw gray rectangle on top of the screen
         c.drawRect(0, 0, c.getWidth(), c.getHeight()/2, paint);
 
-       // paint.setShader(null);
+        //paint.setShader(null);
 
         //set color to black
         paint.setColor(Color.BLACK);

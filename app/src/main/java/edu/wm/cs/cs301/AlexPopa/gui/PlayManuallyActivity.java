@@ -35,10 +35,13 @@ public class PlayManuallyActivity extends AppCompatActivity {
         //set the screen to the manual_maze xml
         setContentView(R.layout.manual_maze);
 
+        MazePanel panel = (MazePanel) findViewById(R.id.mazePanel3);
+
         Information info = Information.getInformation();
 
         StatePlaying state = new StatePlaying();
         state.setMaze(info.getMaze());
+        state.start(panel);
 
         //button that shows walls on screen
         Button wall = (Button) findViewById(R.id.Walls);

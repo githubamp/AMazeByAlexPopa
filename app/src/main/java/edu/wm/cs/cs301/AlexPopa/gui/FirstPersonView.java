@@ -158,6 +158,7 @@ public class FirstPersonView {
             LOGGER.warning("Can't get graphics object to draw on, mitigate this by skipping draw operation") ;
             return;
         }
+		gc = panel;
 
         // update fields angle, viewx, viewy for current position and viewing angle
         angle = ang ;
