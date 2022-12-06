@@ -4,6 +4,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import java.util.Arrays;
 
 import edu.wm.cs.cs301.AlexPopa.generation.Maze;
+import edu.wm.cs.cs301.AlexPopa.generation.Wall;
 import edu.wm.cs.cs301.AlexPopa.gui.Robot.Direction;
 import edu.wm.cs.cs301.AlexPopa.gui.Robot.Turn;
 
@@ -23,6 +24,9 @@ import edu.wm.cs.cs301.AlexPopa.gui.Robot.Turn;
 
 public class WallFollower extends Wizard implements RobotDriver {
 
+	public WallFollower(){
+
+	}
 	/**
 	 * 	constructor that takes a robot and maze and calls the Wizard constructor method
 	 */

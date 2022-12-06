@@ -155,14 +155,30 @@ public class AMazeActivity extends AppCompatActivity {
              */
             public void onClick(View view){
                 Log.v("Revisit", "Revisit pressed");
-                Snackbar re = Snackbar.make(findViewById(android.R.id.content), "Revisit pressed", 1000);
-                re.show();
-                Intent intentG = new Intent(view.getContext(), GeneratingActivity.class);
-                intentG.putExtra("Skill level", seekbar.getProgress());
-                intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
-                intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
-                intentG.putExtra("Seed", Math.random()+100);
-                startActivity(intentG);
+                if(info.getPrevMaze() == null){
+                    Snackbar re = Snackbar.make(findViewById(android.R.id.content), "Please play through a maze first", 1000);
+                    re.show();
+                }else {
+                    Intent intentG;
+                    if (info.getPrevDriver() instanceof WallFollower || info.getPrevDriver() instanceof Wizard) {
+                        intentG = new Intent(view.getContext(), PlayAnimationActivity.class);
+                    } else {
+                        intentG = new Intent(view.getContext(), PlayManuallyActivity.class);
+                    }
+                    /*intentG.putExtra("Skill level", seekbar.getProgress());
+                    intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
+                    intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
+                    intentG.putExtra("Seed", Math.random()+100);*/
+
+                    info.setSkill(info.getPrevSkill());
+                    info.setSeed(info.getPrevSeed());
+                    info.setRooms(info.getPrevRooms());
+                    info.setGen(info.getPrevGen());
+                    info.setMaze(info.getPrevMaze());
+                    info.setRobot((info.getPrevRobot()));
+                    info.setDriver(info.getPrevDriver());
+                    startActivity(intentG);
+                }
             }
         });
     }

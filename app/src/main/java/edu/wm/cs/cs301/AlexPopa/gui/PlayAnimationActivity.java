@@ -1,8 +1,14 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLEFULLMAP;
+import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLELOCALMAP;
+import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLESOLUTION;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import edu.wm.cs.cs301.AlexPopa.R;
+import edu.wm.cs.cs301.AlexPopa.generation.Maze;
 
 /**
  * author @ALEX POPA
@@ -30,6 +37,157 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //set the screen to the driver_maze xml
         setContentView(R.layout.driver_maze);
+
+        MazePanel panel = (MazePanel) findViewById(R.id.mazePanel);
+
+        Information info = Information.getInformation();
+
+        Intent assist = getIntent();
+
+        StatePlaying state = new StatePlaying();
+        state.setMaze(info.getMaze());
+        Maze maze = state.getMaze();
+        int[] start = maze.getStartingPosition();
+        int totalSteps = maze.getDistanceToExit(start[0], start[1]);
+        state.start(panel);
+
+        Handler handler = new Handler(Looper.myLooper());
+
+        if(info.getDriver() instanceof WallFollower){
+            WallFollower wallFollower;
+            if(info.getPrevConfig().equals("Premium")){
+                ReliableRobot rRobot = new ReliableRobot(state);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wallFollower = new WallFollower(rRobot, maze);
+                info.setDriver(wallFollower);
+                info.setPrevRobot(rRobot);
+                info.setRobot(rRobot);
+                info.setPrevDriver(wallFollower);
+                try {
+                    //wallFollower.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Mediocre")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wallFollower = new WallFollower(uRobot, maze);
+                info.setDriver(wallFollower);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wallFollower);
+                try {
+                    //wallFollower.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Soso")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wallFollower = new WallFollower(uRobot, maze);
+                info.setDriver(wallFollower);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wallFollower);
+                try {
+                    //wallFollower.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Shaky")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wallFollower = new WallFollower(uRobot, maze);
+                info.setDriver(wallFollower);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wallFollower);
+                try {
+                    //wallFollower.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else if(info.getDriver() instanceof Wizard){
+            Wizard wiz;
+            if(info.getPrevConfig().equals("Premium")){
+                ReliableRobot rRobot = new ReliableRobot(state);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wiz = new Wizard(rRobot, maze);
+                info.setDriver(wiz);
+                info.setPrevRobot(rRobot);
+                info.setRobot(rRobot);
+                info.setPrevDriver(wiz);
+                try {
+                    //wiz.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Mediocre")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wiz = new Wizard(uRobot, maze);
+                info.setDriver(wiz);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wiz);
+                try {
+                    //wiz.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Soso")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wiz = new Wizard(uRobot, maze);
+                info.setDriver(wiz);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wiz);
+                try {
+                    //wiz.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(info.getPrevConfig().equals("Shaky")){
+                UnreliableRobot uRobot = new UnreliableRobot(state);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
+                uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
+                wiz = new Wizard(uRobot, maze);
+                info.setDriver(wiz);
+                info.setPrevRobot(uRobot);
+                info.setRobot(uRobot);
+                info.setPrevDriver(wiz);
+                try {
+                    //wiz.drive2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         //seekbar that represents difficulty
         SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
@@ -88,6 +246,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                state.handleUserInput(TOGGLELOCALMAP, 0);
                 //make a pop up message saying the button was clicked
                 Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
                 walls.show();
@@ -103,6 +262,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                state.handleUserInput(TOGGLEFULLMAP, 0);
                 //make a pop up message saying the button was clicked
                 Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
                 full.show();
@@ -118,6 +278,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                state.handleUserInput(TOGGLESOLUTION, 0);
                 //make a pop up message saying the button was clicked
                 Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
                 solut.show();

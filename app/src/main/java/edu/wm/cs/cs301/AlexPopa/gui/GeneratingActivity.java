@@ -32,6 +32,7 @@ public class GeneratingActivity extends AppCompatActivity {
     /**
      * when the activity is created
      */
+    Information info = Information.getInformation();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,6 @@ public class GeneratingActivity extends AppCompatActivity {
         setContentView(R.layout.generating);
         //store the current context for later use when it cannot be easily accessed
         Context context = this;
-
-        //progressbar for how much of the maze has generated
 
         //spinner to allow the user to choose what driver they would like for the maze
         Spinner spinner = (Spinner) findViewById(R.id.Driver);
@@ -140,13 +139,25 @@ public class GeneratingActivity extends AppCompatActivity {
                         Intent intentG = new Intent(context, PlayManuallyActivity.class);
                         startActivity(intentG);
                     //if a robot driver was chosen
-                    }else if (spinner.getSelectedItem().equals("Wall Follower") || (spinner.getSelectedItem().equals("Wizard"))){
+                    }else if (spinner.getSelectedItem().equals("Wall Follower")){
                         done = true;
                         //make an intent to go to PlayAnimationActivity and start it
                         Intent intentG = new Intent(context, PlayAnimationActivity.class);
                         //pass along information regarding the driver and sensors used to PlayAnimationActivity
                         intentG.putExtra("Driver", (String) spinner.getSelectedItem());
                         intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
+                        info.setDriver(new WallFollower());
+                        info.setPrevConfig((String) spinner2.getSelectedItem());
+                        startActivity(intentG);
+                    }else if (spinner.getSelectedItem().equals("Wizard")){
+                        done = true;
+                        //make an intent to go to PlayAnimationActivity and start it
+                        Intent intentG = new Intent(context, PlayAnimationActivity.class);
+                        //pass along information regarding the driver and sensors used to PlayAnimationActivity
+                        intentG.putExtra("Driver", (String) spinner.getSelectedItem());
+                        intentG.putExtra("Sensors", (String) spinner2.getSelectedItem());
+                        info.setDriver(new Wizard());
+                        info.setPrevConfig((String) spinner2.getSelectedItem());
                         startActivity(intentG);
                     }
                     try {
@@ -166,16 +177,21 @@ public class GeneratingActivity extends AppCompatActivity {
     public void update(ProgressBar loading){
         Thread up = new Thread(new Runnable(){
             public void run(){
-                Information info = Information.getInformation();
+
                 MazeFactory factory = new MazeFactory();
                 System.out.println("here " + info.getSkill() + " " + info.getGen() + " " + info.getRooms() + " " + info.getSeed());
                 DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
                 factory.order(order);
 
+                info.setPrevSkill(info.getSkill());
+                info.setPrevGen(info.getGen());
+                info.setPrevRooms(info.getRooms());
+                info.setPrevSeed(info.getSeed());
+
                 while(loading.getProgress() != loading.getMax()){
                     loading.setProgress(order.getProgress());
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -183,6 +199,7 @@ public class GeneratingActivity extends AppCompatActivity {
 
                 factory.waitTillDelivered();
                 info.setMaze(order.getMaze());
+                info.setPrevMaze(order.getMaze());
             }
         });
         up.start();

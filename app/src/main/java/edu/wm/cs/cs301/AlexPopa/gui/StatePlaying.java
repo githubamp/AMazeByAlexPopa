@@ -291,19 +291,19 @@ public class StatePlaying{
         case TOGGLELOCALMAP: // show local information: current position and visible walls
             // precondition for showMaze and showSolution to be effective
             // acts as a toggle switch
-            mapMode = !mapMode;         
+            mapMode = !mapMode;
             draw(cd.angle(), 0) ;
             cr.paintComponent(panel);
             break;
         case TOGGLEFULLMAP: // show the whole maze
             // acts as a toggle switch
-            showMaze = !showMaze;       
+            showMaze = !showMaze;
             draw(cd.angle(), 0) ;
             cr.paintComponent(panel);
             break;
         case TOGGLESOLUTION: // show the solution as a yellow line towards the exit
             // acts as a toggle switch
-            showSolution = !showSolution;       
+            showSolution = !showSolution;
             draw(cd.angle(), 0) ;
             cr.paintComponent(panel);
             break;
@@ -335,7 +335,7 @@ public class StatePlaying{
         if (isInMapMode()) {
 			mapView.draw(panel, px, py, angle, walkStep,
 					isInShowMazeMode(),isInShowSolutionMode()) ;
-		}
+        }
 		// update the screen with the buffer graphics
         panel.commit() ;
     }
