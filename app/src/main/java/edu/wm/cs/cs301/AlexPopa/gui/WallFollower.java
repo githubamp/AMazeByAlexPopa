@@ -34,6 +34,10 @@ public class WallFollower extends Wizard implements RobotDriver {
 		robot = r;
 		maze = m;
 	}
+
+	public Robot getRobot(){
+		return robot;
+	}
 	
 	/**
 	 * 	while robot has energy and has not crashed

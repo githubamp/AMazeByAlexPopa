@@ -4,6 +4,7 @@ import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLEFULLMAP;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLELOCALMAP;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLESOLUTION;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,9 +35,13 @@ public class PlayAnimationActivity  extends AppCompatActivity {
     private Wizard wiz;
     private WallFollower wallFollower;
 
+    private Context context = this;
+
     private int labelNo    = 0;
     private long currTime  = 0L;
     private long mStartTime = 0L;
+
+    private int totalSteps;
 
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
@@ -48,19 +53,41 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
             if(wiz != null){
                 try {
-                    wiz.drive1Step2Exit();
+                    if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
+                        Intent intentG = new Intent(context, WinningActivity.class);
+                        //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
+                        intentG.putExtra("Steps taken", wiz.getRobot().getOdometerReading());
+                        intentG.putExtra("Shortest steps", totalSteps-1);
+                        intentG.putExtra("Energy", wiz.getEnergyConsumption());
+                        intentG.putExtra("Robot", "y");
+                        //start WinningActivity
+                        startActivity(intentG);
+                    }else{
+                        wiz.drive1Step2Exit();
+                        mHandler.postDelayed(this, 1);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }else if(wallFollower != null){
                 try {
-                    wallFollower.drive1Step2Exit();
+                    if(wallFollower.getRobot().isAtExit() && wallFollower.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
+                        Intent intentG = new Intent(context, WinningActivity.class);
+                        //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
+                        intentG.putExtra("Steps taken", wallFollower.getRobot().getOdometerReading());
+                        intentG.putExtra("Shortest steps", totalSteps-1);
+                        intentG.putExtra("Energy", wallFollower.getEnergyConsumption());
+                        intentG.putExtra("Robot", "y");
+                        //start WinningActivity
+                        startActivity(intentG);
+                    }else{
+                        wallFollower.drive1Step2Exit();
+                        mHandler.postDelayed(this, 1);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-            mHandler.postDelayed(this, 1000);
         }
     };
 
@@ -83,7 +110,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         state.setMaze(info.getMaze());
         Maze maze = state.getMaze();
         int[] start = maze.getStartingPosition();
-        int totalSteps = maze.getDistanceToExit(start[0], start[1]);
+        totalSteps = maze.getDistanceToExit(start[0], start[1]);
         state.start(panel);
 
 
@@ -99,15 +126,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(rRobot);
                 info.setRobot(rRobot);
                 info.setPrevDriver(wallFollower);
-                try {
-                    if (mStartTime == 0L) {
-                        mStartTime = System.currentTimeMillis();
-                        mHandler.removeCallbacks(mUpdateTimeTask);
-                        mHandler.postDelayed(mUpdateTimeTask, 100);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Mediocre")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -119,11 +137,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wallFollower);
-                try {
-                    //wallFollower.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Soso")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -135,11 +148,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wallFollower);
-                try {
-                    //wallFollower.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Shaky")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -151,11 +159,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wallFollower);
-                try {
-                    //wallFollower.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         }else if(info.getDriver() instanceof Wizard){
             if(info.getPrevConfig().equals("Premium")){
@@ -169,11 +172,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(rRobot);
                 info.setRobot(rRobot);
                 info.setPrevDriver(wiz);
-                try {
-                    //wiz.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Mediocre")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -185,11 +183,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wiz);
-                try {
-                    //wiz.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Soso")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -201,11 +194,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wiz);
-                try {
-                    //wiz.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }else if(info.getPrevConfig().equals("Shaky")){
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -217,12 +205,17 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
                 info.setPrevDriver(wiz);
-                try {
-                    //wiz.drive2Exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
+        }
+
+        try {
+            if (mStartTime == 0L) {
+                mStartTime = System.currentTimeMillis();
+                mHandler.removeCallbacks(mUpdateTimeTask);
+                mHandler.postDelayed(mUpdateTimeTask, 100);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //seekbar that represents difficulty
