@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,40 @@ import edu.wm.cs.cs301.AlexPopa.generation.Maze;
  * author @ALEX POPA
  */
 public class PlayAnimationActivity  extends AppCompatActivity {
+
+    private Handler mHandler = new Handler(Looper.myLooper());
+    private Wizard wiz;
+    private WallFollower wallFollower;
+
+    private int labelNo    = 0;
+    private long currTime  = 0L;
+    private long mStartTime = 0L;
+
+    private Runnable mUpdateTimeTask = new Runnable() {
+        public void run() {
+            final long start = mStartTime;
+            long millis = SystemClock.uptimeMillis() - start;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+            if(wiz != null){
+                try {
+                    wiz.drive1Step2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else if(wallFollower != null){
+                try {
+                    wallFollower.drive1Step2Exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            mHandler.postDelayed(this, 1000);
+        }
+    };
 
     /**
      * when the activity is created
@@ -51,10 +86,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         int totalSteps = maze.getDistanceToExit(start[0], start[1]);
         state.start(panel);
 
-        Handler handler = new Handler(Looper.myLooper());
 
         if(info.getDriver() instanceof WallFollower){
-            WallFollower wallFollower;
             if(info.getPrevConfig().equals("Premium")){
                 ReliableRobot rRobot = new ReliableRobot(state);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
@@ -67,7 +100,11 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(rRobot);
                 info.setPrevDriver(wallFollower);
                 try {
-                    //wallFollower.drive2Exit();
+                    if (mStartTime == 0L) {
+                        mStartTime = System.currentTimeMillis();
+                        mHandler.removeCallbacks(mUpdateTimeTask);
+                        mHandler.postDelayed(mUpdateTimeTask, 100);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -121,7 +158,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 }
             }
         }else if(info.getDriver() instanceof Wizard){
-            Wizard wiz;
             if(info.getPrevConfig().equals("Premium")){
                 ReliableRobot rRobot = new ReliableRobot(state);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);

@@ -269,8 +269,8 @@ public class StatePlaying{
             break;
         case DOWN: // move backward
         	LOGGER.fine("Move 1 step backward");
-            cr.paintComponent(panel);
             walk(-1);
+            cr.paintComponent(panel);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
                 finished = true;
@@ -330,7 +330,7 @@ public class StatePlaying{
     		return;
     	}
     	// draw the first person view and the map view if wanted
-    	firstPersonView.draw(panel, px, py, walkStep, angle, 
+    	firstPersonView.draw(panel, px, py, walkStep, angle,
     			maze.getPercentageForDistanceToExit(px, py)) ;
         if (isInMapMode()) {
 			mapView.draw(panel, px, py, angle, walkStep,
