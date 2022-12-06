@@ -45,12 +45,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
     private Runnable mUpdateTimeTask = new Runnable() {
         public void run() {
-            final long start = mStartTime;
-            long millis = SystemClock.uptimeMillis() - start;
-            int seconds = (int) (millis / 1000);
-            int minutes = seconds / 60;
-            seconds = seconds % 60;
-
             if(wiz != null){
                 try {
                     if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
@@ -133,6 +127,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
                 info.setDriver(wallFollower);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -144,6 +140,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.BACKWARD, 4000, 2000);
                 info.setDriver(wallFollower);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -155,6 +153,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.BACKWARD, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
                 info.setDriver(wallFollower);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -179,6 +181,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
                 info.setDriver(wiz);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -190,6 +194,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.BACKWARD, 4000, 2000);
                 info.setDriver(wiz);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -201,6 +207,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.BACKWARD, 4000, 2000);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
                 info.setDriver(wiz);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
