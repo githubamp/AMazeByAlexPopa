@@ -7,16 +7,16 @@
 
     <edu.wm.cs.cs301.AlexPopa.gui.MazePanel
         android:id="@+id/mazePanel"
-        android:layout_width="315dp"
-        android:layout_height="315dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="31dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.475" />
 
     <Button
         android:id="@+id/start"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/go2winning"
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
         app:layout_constraintVertical_bias="0.134" />
 
     <Button
@@ -196,36 +196,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SpeedText" />
 
-    <Button
-        android:id="@+id/go2winning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="339dp"
-        android:layout_marginEnd="60dp"
-        android:text="@string/go2winning"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/go2losing"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
-
-    <Button
-        android:id="@+id/go2losing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="339dp"
-        android:layout_marginEnd="40dp"
-        android:text="@string/go2losing"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
-
     <EditText
         android:id="@+id/SensorLabel"
         android:layout_width="73dp"
@@ -240,8 +210,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/start"
-        app:layout_constraintTop_toBottomOf="@+id/go2losing"
-        app:layout_constraintVertical_bias="0.09"
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
+        app:layout_constraintVertical_bias="0.155"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
@@ -254,10 +224,10 @@
         android:text="Forward"
         app:layout_constraintBottom_toTopOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toEndOf="@+id/SensorLabel"
-        app:layout_constraintTop_toBottomOf="@+id/go2losing"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
+        app:layout_constraintVertical_bias="0.454" />
 
     <TextView
         android:id="@+id/Backward"
@@ -268,10 +238,10 @@
         android:text="Backward"
         app:layout_constraintBottom_toTopOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toEndOf="@+id/SensorLabel"
-        app:layout_constraintTop_toBottomOf="@+id/go2losing"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
+        app:layout_constraintVertical_bias="0.69" />
 
     <TextView
         android:id="@+id/LeftSensor"
@@ -283,8 +253,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/SensorLabel"
-        app:layout_constraintTop_toBottomOf="@+id/go2losing"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
+        app:layout_constraintVertical_bias="0.38" />
 
     <TextView
         android:id="@+id/RightSensor"
@@ -293,9 +263,9 @@
         android:text="Right"
         app:layout_constraintBottom_toTopOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toEndOf="@+id/SensorLabel"
-        app:layout_constraintTop_toBottomOf="@+id/go2losing"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintTop_toBottomOf="@+id/mazePanel"
+        app:layout_constraintVertical_bias="0.38" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

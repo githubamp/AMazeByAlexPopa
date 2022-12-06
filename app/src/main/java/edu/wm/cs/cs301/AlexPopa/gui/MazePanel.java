@@ -144,7 +144,6 @@ public class MazePanel extends View implements P7PanelF22{
         }*/
 
         //draw the bitmap
-        //addBackground(80);
         commit();
         canvas.drawBitmap(map, 0,0, paint);
     }
@@ -255,11 +254,8 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addBackground(float percentToExit) {
-        if(getContext() instanceof PlayAnimationActivity){
-            map = Bitmap.createBitmap(827, 827, Bitmap.Config.ARGB_8888);
-        }else{
-            map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
-        }
+
+        map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(map);
 
         //create a temporary canvas
@@ -271,8 +267,8 @@ public class MazePanel extends View implements P7PanelF22{
         /*LinearGradient grad1 = new LinearGradient(c.getWidth(), -1, c.getWidth(), (c.getHeight()*(percentToExit/100)), Color.GRAY, Color.GREEN, Shader.TileMode.CLAMP);
         paint.setShader(grad1);*/
 
-        int color = ColorUtils.blendARGB(Color.BLACK, Color.YELLOW, (float)percentToExit/100);
-        int color2 = ColorUtils.blendARGB(Color.GRAY, Color.GREEN, (float)percentToExit/100);
+        int color = ColorUtils.blendARGB(Color.YELLOW, Color.BLACK, (float)percentToExit/100);
+        int color2 = ColorUtils.blendARGB(Color.GREEN, Color.GRAY, (float)percentToExit/100);
 
         paint.setColor(color);
 
@@ -424,7 +420,8 @@ public class MazePanel extends View implements P7PanelF22{
      */
     @Override
     public void addFilledOval(int x, int y, int width, int height) {
-        canvas.drawOval(x, y, width, height, paint);
+        //canvas.drawOval(x, y, width, height, paint);
+        canvas.drawCircle(getWidth()/2, height, width, paint);
     }
 
     /**

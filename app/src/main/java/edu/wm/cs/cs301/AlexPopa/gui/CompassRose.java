@@ -170,7 +170,7 @@ public class CompassRose {
 		// color setting hard coded as white
 		g2.setColor(ColorTheme.getColor(COMPASSROSE_BACKGROUND));
 		// determine x,y coordinates for oval
-		final int x = centerX - size;
+		final int x = centerX;
 		final int y = centerY - size;
 		// determine width and height of oval
 		// for a circle both are same, so one variable suffices
@@ -255,8 +255,8 @@ public class CompassRose {
 	 */
 	private void drawBorderCircle(MazePanel g2, int width) {
 		// determine x,y coordinates for arc
-		final int x = centerX - width / 2 + CIRCLE_BORDER;
-		final int y = centerY - width / 2 + CIRCLE_BORDER;
+		final int x = centerX + width  + CIRCLE_BORDER;
+		final int y = centerY + width + CIRCLE_BORDER;
 		// determine width and height for arc, 
 		// symmetric so both are same
 		// only one variable is needed

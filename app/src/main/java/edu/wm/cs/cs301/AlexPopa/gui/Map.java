@@ -140,7 +140,7 @@ public class Map {
         }
         final int viewDX = getViewDX(angle); 
         final int viewDY = getViewDY(angle);
-        drawMap(panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
+		drawMap(panel, x, y, walkStep, viewDX, viewDY, showMaze, showSolution) ;
         drawCurrentLocation(panel, viewDX, viewDY) ;
 	}
 	//////////////////////////////// private, internal methods //////////////////////////////
@@ -184,7 +184,7 @@ public class Map {
 		// dimensions of the maze in terms of cell ids
 		final int mazeWidth = maze.getWidth() ;
 		final int mazeHeight = maze.getHeight() ;
-		
+
 		g.setColor(ColorTheme.getColor(MAP_DEFAULT));
 		
 		// note: 1/2 of width and height is the center of the screen

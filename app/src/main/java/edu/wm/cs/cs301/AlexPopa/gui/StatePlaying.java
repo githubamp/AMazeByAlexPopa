@@ -1,5 +1,8 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import android.content.Intent;
+import android.util.Log;
+
 import edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput;
 
 import java.util.logging.Logger;
@@ -68,13 +71,12 @@ public class StatePlaying{
      * The panel is the capability to draw on the screen.
      */
     private MazePanel panel;
-    
+
+
     /**
-     * Control is the context class of the State pattern.
-     * The reference is needed to pull some pieces of information
-     * plus switch control to the next state, which 
-     * is the maze generating state.
+     * keeps track if the user finished the maze
      */
+    private boolean finished;
 
 
     /**
@@ -142,6 +144,10 @@ public class StatePlaying{
     public void setMaze(Maze maze) {
         this.maze = maze;
     }
+
+    public boolean isFinished(){
+        return finished;
+    }
     /**
      * Start the actual game play by showing the playing screen.
      * If the panel is null, all drawing operations are skipped.
@@ -191,13 +197,13 @@ public class StatePlaying{
 	protected void startDrawer() {
 		cr = new CompassRose();
 		cr.setPositionAndSize(Constants.VIEW_WIDTH/2,
-				(int)(0.1*Constants.VIEW_HEIGHT),35);
+				(int)(0.1*Constants.VIEW_HEIGHT),50);
 
 		firstPersonView = new FirstPersonView(Constants.VIEW_WIDTH,
 				Constants.VIEW_HEIGHT, Constants.MAP_UNIT,
 				Constants.STEP_SIZE, seenCells, maze.getRootnode()) ;
 		
-		mapView = new Map(seenCells, 15, maze) ;
+		mapView = new Map(seenCells, 100, maze) ;
 		// draw the initial screen for this state
 		draw(cd.angle(), 0);
 	}
@@ -244,24 +250,30 @@ public class StatePlaying{
         case UP: // move forward
         	LOGGER.fine("Move 1 step forward");
             walk(1);
+            cr.paintComponent(panel);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
+                finished = true;
             	// TODO: provide actual path length
             }
             break;
         case LEFT: // turn left
         	LOGGER.fine("Turn left");
             rotate(1);
+            cr.paintComponent(panel);
             break;
         case RIGHT: // turn right
         	LOGGER.fine("Turn right");
             rotate(-1);
+            cr.paintComponent(panel);
             break;
         case DOWN: // move backward
         	LOGGER.fine("Move 1 step backward");
+            cr.paintComponent(panel);
             walk(-1);
             // check termination, did we leave the maze?
             if (isOutside(px,py)) {
+                finished = true;
             	// TODO: provide actual path length
             }
             break;
@@ -280,17 +292,20 @@ public class StatePlaying{
             // precondition for showMaze and showSolution to be effective
             // acts as a toggle switch
             mapMode = !mapMode;         
-            draw(cd.angle(), 0) ; 
+            draw(cd.angle(), 0) ;
+            cr.paintComponent(panel);
             break;
         case TOGGLEFULLMAP: // show the whole maze
             // acts as a toggle switch
             showMaze = !showMaze;       
-            draw(cd.angle(), 0) ; 
+            draw(cd.angle(), 0) ;
+            cr.paintComponent(panel);
             break;
         case TOGGLESOLUTION: // show the solution as a yellow line towards the exit
             // acts as a toggle switch
             showSolution = !showSolution;       
             draw(cd.angle(), 0) ;
+            cr.paintComponent(panel);
             break;
         case ZOOMIN: // zoom into map
         	mapView.incrementMapScale(); 

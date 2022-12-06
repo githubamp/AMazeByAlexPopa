@@ -172,12 +172,12 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         });
 
         //temporary button that goes straight to the win screen
-        Button win = (Button) findViewById(R.id.go2winning);
+        /*Button win = (Button) findViewById(R.id.go2winning);
         win.setOnClickListener(new View.OnClickListener(){
             /**
              * on click of the button
              */
-            public void onClick(View view){
+        /*    public void onClick(View view){
                 //make a pop up message saying the button was clicked
                 Snackbar won = Snackbar.make(findViewById(android.R.id.content), "Pressed win", 500);
                 won.show();
@@ -193,15 +193,15 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 //start WinningActivity
                 startActivity(intentG);
             }
-        });
+        });*/
 
         //temporary button that goes straight to the lose screen
-        Button lose = (Button) findViewById(R.id.go2losing);
+        /*Button lose = (Button) findViewById(R.id.go2losing);
         lose.setOnClickListener(new View.OnClickListener(){
             /**
              * on click of the button
              */
-            public void onClick(View view){
+        /*    public void onClick(View view){
                 //make a pop up message saying the button was clicked
                 Snackbar lost = Snackbar.make(findViewById(android.R.id.content), "Pressed lose", 500);
                 lost.show();
@@ -217,6 +217,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 //start LosingActivity
                 startActivity(intentG);
             }
-        });
+        });*/
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".gui.AMazeActivity">
+    tools:context=".gui.AMazeActivity"
+    android:background="@drawable/maze">
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
@@ -16,6 +17,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/please_select_a_difficulty_from_0_15"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,6 +33,7 @@
         android:indeterminate="false"
         android:max="15"
         android:progress="0"
+        android:progressTint="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +50,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/welcome_to_the_labyrinth"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -64,6 +68,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/would_you_like_rooms_in_the_maze"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -76,6 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:background="#FFFFFF"
         android:contextClickable="true"
         android:dropDownWidth="wrap_content"
         android:entries="@array/yesno_array"
@@ -91,6 +97,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
+        android:background="#FFFFFF"
         android:contextClickable="true"
         android:dropDownWidth="wrap_content"
         android:entries="@array/generator_array"
@@ -106,14 +113,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/maze_generator"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Button
         android:id="@+id/explore"

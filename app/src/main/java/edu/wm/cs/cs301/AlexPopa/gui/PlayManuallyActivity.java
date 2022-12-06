@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.material.snackbar.Snackbar;
 
 import edu.wm.cs.cs301.AlexPopa.R;
+import edu.wm.cs.cs301.AlexPopa.generation.Maze;
 
 /**
  * author @ALEX POPA
@@ -41,6 +42,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
 
         StatePlaying state = new StatePlaying();
         state.setMaze(info.getMaze());
+        Maze maze = state.getMaze();
+        int[] start = maze.getStartingPosition();
+        int totalSteps = maze.getDistanceToExit(start[0], start[1]);
         state.start(panel);
 
         //button that shows walls on screen
@@ -77,7 +81,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
 
         //button that shows the solution on screen
         Button sol = (Button) findViewById(R.id.Solution);
-        sol.setOnClickListener(new View.OnClickListener(){
+            sol.setOnClickListener(new View.OnClickListener(){
             /**
              * on click of the button
              */
@@ -138,6 +142,15 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 Log.v("Direction", "Up pressed");
                 //increase count
                 count++;
+                if(state.isFinished()){
+                    Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
+                    intentG.putExtra("Steps taken", count);
+                    intentG.putExtra("Shortest steps", totalSteps);
+                    intentG.putExtra("Robot", "n");
+                    //start WinningActivity
+                    startActivity(intentG);
+                }
             }
         });
 
@@ -156,6 +169,15 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 Log.v("Direction", "Down pressed");
                 //increase count
                 count++;
+                if(state.isFinished()){
+                    Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
+                    intentG.putExtra("Steps taken", count);
+                    intentG.putExtra("Shortest steps", totalSteps);
+                    intentG.putExtra("Robot", "n");
+                    //start WinningActivity
+                    startActivity(intentG);
+                }
             }
         });
 
@@ -173,7 +195,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Left pressed");
                 //increase count
-                count++;
             }
         });
 
@@ -191,7 +212,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Right pressed");
                 //increase count
-                count++;
             }
         });
 
@@ -229,7 +249,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                 //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
                 intentG.putExtra("Steps taken", count);
-                intentG.putExtra("Shortest steps", 500);
+                intentG.putExtra("Shortest steps", totalSteps);
                 intentG.putExtra("Robot", "n");
                 //start WinningActivity
                 startActivity(intentG);

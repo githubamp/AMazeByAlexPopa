@@ -166,7 +166,7 @@ public class FirstPersonView {
         
         // update graphics
         // draw background figure: lightGrey to green on bottom half, yellow to gold on top half
-        panel.addBackground(percentToExit);
+        panel.addBackground(percentToExit*100);
         // set color to white and draw what ever can be seen from the current position
         panel.setColor(ColorTheme.getColor(MazeColors.FIRSTPERSON_DEFAULT));
         // reset the set of ranges to a single new element (0,width-1)
