@@ -3,6 +3,8 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLEFULLMAP;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLELOCALMAP;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.TOGGLESOLUTION;
+import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.ZOOMIN;
+import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.ZOOMOUT;
 
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +47,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
     private int totalSteps;
 
-    private Runnable mUpdateTimeTask = new Runnable() {
+    private Thread mUpdateTimeTask = new Thread() {
 
         int speedAnimation = 1;
 
@@ -56,7 +58,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             TextView backward = (TextView) findViewById(R.id.Backward);
 
             SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
-
 
             speedbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 /**
@@ -85,14 +86,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                     speedAnimation = progress;
                 }
             });
-
-            while(paused){
-                try{
-                    wait();
-                }catch(Exception e){
-
-                }
-            }
 
             if(wiz != null){
                 try {
@@ -356,8 +349,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 //make a log statement
                 Log.v("Seekbar", "Speed pressed");
                 //make a message appear from the bottom of the screen
-                Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
-                speed.show();
+               /*Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
+                speed.show();*/
             }
         });
 
@@ -371,8 +364,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLELOCALMAP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
-                walls.show();
+                /*Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
+                walls.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Walls pressed");
             }
@@ -387,8 +380,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLEFULLMAP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
-                full.show();
+                /*Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
+                full.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Full maze pressed");
             }
@@ -417,9 +410,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                state.handleUserInput(ZOOMOUT, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
-                sma.show();
+                /*Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
+                sma.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Smaller pressed");
             }
@@ -432,9 +426,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                state.handleUserInput(ZOOMIN, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
-                b.show();
+                /*Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
+                b.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Bigger pressed");
             }
@@ -452,11 +447,18 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 st.show();
                 //make a log message saying the button was clicked
                 Log.v("Button", "Start/pause pressed");
-                if(paused){
+                if(paused == true){
+                    //notifyAll();
                     paused = false;
+                    mStartTime = 0L;
+                    if (mStartTime == 0L) {
+                        mStartTime = System.currentTimeMillis();
+                        mHandler.removeCallbacks(mUpdateTimeTask);
+                        mHandler.postDelayed(mUpdateTimeTask, 100);
+                    }
                 }else{
                     paused = true;
-                    notifyAll();
+                    mHandler.removeCallbacks(mUpdateTimeTask);
                 }
             }
         });
