@@ -35,10 +35,6 @@ public class WallFollower extends Wizard implements RobotDriver {
 		maze = m;
 	}
 
-	public Robot getRobot(){
-		return robot;
-	}
-	
 	/**
 	 * 	while robot has energy and has not crashed
 	 * 		keep moving toward the exit by using the drive1Step2Exit() method

@@ -1,5 +1,7 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import android.hardware.Sensor;
+
 import edu.wm.cs.cs301.AlexPopa.gui.Robot.Direction;
 
 /**

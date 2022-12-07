@@ -142,6 +142,27 @@ public class ReliableRobot implements Robot{
 		battery = level;
 	}
 
+	/**
+	 * returns the specified sensor
+	 */
+	public DistanceSensor getSensor(Direction d){
+		switch(d){
+			case LEFT:{
+				return leftSensor;
+			}
+			case RIGHT:{
+				return rightSensor;
+			}
+			case FORWARD:{
+				return forwardSensor;
+			}
+			case BACKWARD:{
+				return backwardSensor;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public float getEnergyForFullRotation() {
 		/**

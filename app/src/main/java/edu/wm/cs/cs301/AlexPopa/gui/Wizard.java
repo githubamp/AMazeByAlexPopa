@@ -1,5 +1,7 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import android.hardware.Sensor;
+
 import java.util.Arrays;
 
 import edu.wm.cs.cs301.AlexPopa.generation.*;

@@ -39,6 +39,10 @@ public class UnreliableSensor extends ReliableSensor{
 	public UnreliableSensor() {
 		operational = true;
 	}
+
+	public Thread getGoTime(){
+		return goTime;
+	}
 	
 	/**
 	 * 	returns if the sensor is currently working or not

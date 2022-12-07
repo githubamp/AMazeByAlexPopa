@@ -44,7 +44,46 @@ public class PlayAnimationActivity  extends AppCompatActivity {
     private int totalSteps;
 
     private Runnable mUpdateTimeTask = new Runnable() {
+
+        int speedAnimation = 1;
+
         public void run() {
+            TextView left = (TextView) findViewById(R.id.LeftSensor);
+            TextView right = (TextView) findViewById(R.id.RightSensor);
+            TextView forward = (TextView) findViewById(R.id.Forward);
+            TextView backward = (TextView) findViewById(R.id.Backward);
+
+            SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
+
+
+            speedbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                /**
+                 *  following two methods are just needed to override but do noting
+                 */
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                /**
+                 *  on change of the speed seekbar
+                 */
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    //make a log statement
+                    Log.v("Seekbar", "Speed pressed");
+                    //make a message appear from the bottom of the screen
+                    /*Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
+                    speed.show();*/
+                    speedAnimation = progress;
+                }
+            });
+
             if(wiz != null){
                 try {
                     if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
@@ -58,7 +97,27 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         startActivity(intentG);
                     }else{
                         wiz.drive1Step2Exit();
-                        mHandler.postDelayed(this, 1);
+                        if(wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())){
+                            left.setBackgroundColor(Color.RED);
+                        }else{
+                            left.setBackgroundColor(Color.GREEN);
+                        }
+                        if(wiz.getRobot().getSensor(Robot.Direction.RIGHT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.RIGHT)).getOperational())){
+                            right.setBackgroundColor(Color.RED);
+                        }else{
+                            right.setBackgroundColor(Color.GREEN);
+                        }
+                        if(wiz.getRobot().getSensor(Robot.Direction.BACKWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.BACKWARD)).getOperational())){
+                            backward.setBackgroundColor(Color.RED);
+                        }else{
+                            backward.setBackgroundColor(Color.GREEN);
+                        }
+                        if(wiz.getRobot().getSensor(Robot.Direction.FORWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.FORWARD)).getOperational())){
+                            forward.setBackgroundColor(Color.RED);
+                        }else{
+                            forward.setBackgroundColor(Color.GREEN);
+                        }
+                        mHandler.postDelayed(this, speedAnimation*100);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -107,6 +166,26 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         totalSteps = maze.getDistanceToExit(start[0], start[1]);
         state.start(panel);
 
+        TextView left = (TextView) findViewById(R.id.LeftSensor);
+        TextView right = (TextView) findViewById(R.id.RightSensor);
+        TextView forward = (TextView) findViewById(R.id.Forward);
+        TextView backward = (TextView) findViewById(R.id.Backward);
+
+        //make the text representing the left sensor green to represent that it's functional
+        //turn it red when it is not
+        left.setBackgroundColor(Color.GREEN);
+
+        //make the text representing the right sensor green to represent that it's functional
+        //turn it red when it is not
+        right.setBackgroundColor(Color.GREEN);
+
+        //make the text representing the forward sensor green to represent that it's functional
+        //turn it red when it is not
+        forward.setBackgroundColor(Color.GREEN);
+
+        //make the text representing the backward sensor green to represent that it's functional
+        //turn it red when it is not
+        backward.setBackgroundColor(Color.GREEN);
 
         if(info.getDriver() instanceof WallFollower){
             if(info.getPrevConfig().equals("Premium")){
@@ -127,8 +206,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.LEFT), Robot.Direction.LEFT);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
-                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
                 wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
+                wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
                 info.setDriver(wallFollower);
                 info.setPrevRobot(uRobot);
                 info.setRobot(uRobot);
@@ -182,6 +261,11 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                try{
+
+                }catch(Exception e){
+
+                }
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
                 info.setDriver(wiz);
                 info.setPrevRobot(uRobot);
@@ -258,25 +342,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             }
         });
 
-        //make the text representing the left sensor green to represent that it's functional
-        //turn it red when it is not
-        TextView left = (TextView) findViewById(R.id.LeftSensor);
-        left.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the right sensor green to represent that it's functional
-        //turn it red when it is not
-        TextView right = (TextView) findViewById(R.id.RightSensor);
-        right.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the forward sensor green to represent that it's functional
-        //turn it red when it is not
-        TextView forward = (TextView) findViewById(R.id.Forward);
-        forward.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the backward sensor green to represent that it's functional
-        //turn it red when it is not
-        TextView backward = (TextView) findViewById(R.id.Backward);
-        backward.setBackgroundColor(Color.GREEN);
 
         //button that shows walls on screen
         Button wall = (Button) findViewById(R.id.walls);

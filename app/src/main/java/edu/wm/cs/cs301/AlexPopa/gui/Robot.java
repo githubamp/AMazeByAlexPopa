@@ -264,6 +264,8 @@ public interface Robot {
 	 */
 	boolean canSeeThroughTheExitIntoEternity(Direction direction) throws UnsupportedOperationException ;
 
+	DistanceSensor getSensor(Direction d);
+
 	/////// OPTIONAL METHODS /////////////////////////////////////////////
 	////// The following 2 methods will be fully implemented in 
 	////// Project assignment 4 for a class UnreliableSensor.
