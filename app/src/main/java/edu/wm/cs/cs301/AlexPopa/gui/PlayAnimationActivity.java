@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -56,6 +57,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             TextView right = (TextView) findViewById(R.id.RightSensor);
             TextView forward = (TextView) findViewById(R.id.Forward);
             TextView backward = (TextView) findViewById(R.id.Backward);
+
+            ProgressBar energyConsumption = (ProgressBar) findViewById(R.id.energy);
 
             SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
 
@@ -109,6 +112,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         startActivity(intentG);
                     }else{
                         wiz.drive1Step2Exit();
+                        energyConsumption.setProgress(3500 - (int)wiz.getEnergyConsumption());
                         if(wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())){
                             left.setBackgroundColor(Color.RED);
                         }else{
@@ -324,37 +328,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //seekbar that represents difficulty
-        SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
-
-        speedbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            /**
-             *  following two methods are just needed to override but do noting
-             */
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            /**
-             *  on change of the speed seekbar
-             */
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //make a log statement
-                Log.v("Seekbar", "Speed pressed");
-                //make a message appear from the bottom of the screen
-               /*Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
-                speed.show();*/
-            }
-        });
-
-
         //button that shows walls on screen
         Button wall = (Button) findViewById(R.id.walls);
         wall.setOnClickListener(new View.OnClickListener(){
@@ -462,53 +435,5 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 }
             }
         });
-
-        //temporary button that goes straight to the win screen
-        /*Button win = (Button) findViewById(R.id.go2winning);
-        win.setOnClickListener(new View.OnClickListener(){
-            /**
-             * on click of the button
-             */
-        /*    public void onClick(View view){
-                //make a pop up message saying the button was clicked
-                Snackbar won = Snackbar.make(findViewById(android.R.id.content), "Pressed win", 500);
-                won.show();
-                //make a log message saying the button was clicked
-                Log.v("Cheats", "Win pressed");
-                //make an intent to go to WinningActivity
-                Intent intentG = new Intent(view.getContext(), WinningActivity.class);
-                //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
-                intentG.putExtra("Steps taken", 500);
-                intentG.putExtra("Shortest steps", 500);
-                intentG.putExtra("Energy", 1000);
-                intentG.putExtra("Robot", "y");
-                //start WinningActivity
-                startActivity(intentG);
-            }
-        });*/
-
-        //temporary button that goes straight to the lose screen
-        /*Button lose = (Button) findViewById(R.id.go2losing);
-        lose.setOnClickListener(new View.OnClickListener(){
-            /**
-             * on click of the button
-             */
-        /*    public void onClick(View view){
-                //make a pop up message saying the button was clicked
-                Snackbar lost = Snackbar.make(findViewById(android.R.id.content), "Pressed lose", 500);
-                lost.show();
-                //make a log message saying the button was clicked
-                Log.v("Cheats", "Lose pressed");
-                //make an intent to go to LosingActivity
-                Intent intentG = new Intent(view.getContext(), LosingActivity.class);
-                //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
-                intentG.putExtra("Steps taken", 500);
-                intentG.putExtra("Shortest steps", 500);
-                intentG.putExtra("Energy", 3500);
-                intentG.putExtra("Robot", "y");
-                //start LosingActivity
-                startActivity(intentG);
-            }
-        });*/
     }
 }
