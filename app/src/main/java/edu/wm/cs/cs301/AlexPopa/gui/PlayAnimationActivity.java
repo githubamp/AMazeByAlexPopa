@@ -37,6 +37,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
     private Context context = this;
 
+    private boolean paused = false;
+
     private int labelNo    = 0;
     private long currTime  = 0L;
     private long mStartTime = 0L;
@@ -47,7 +49,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
         int speedAnimation = 1;
 
-        public void run() {
+        public synchronized void run() {
             TextView left = (TextView) findViewById(R.id.LeftSensor);
             TextView right = (TextView) findViewById(R.id.RightSensor);
             TextView forward = (TextView) findViewById(R.id.Forward);
@@ -84,6 +86,14 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 }
             });
 
+            while(paused){
+                try{
+                    wait();
+                }catch(Exception e){
+
+                }
+            }
+
             if(wiz != null){
                 try {
                     if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
@@ -91,9 +101,18 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
                         intentG.putExtra("Steps taken", wiz.getRobot().getOdometerReading());
                         intentG.putExtra("Shortest steps", totalSteps-1);
-                        intentG.putExtra("Energy", wiz.getEnergyConsumption());
+                        intentG.putExtra("Energy", (int)wiz.getEnergyConsumption());
                         intentG.putExtra("Robot", "y");
                         //start WinningActivity
+                        startActivity(intentG);
+                    }else if(wiz.getRobot().hasStopped()) {
+                        Intent intentG = new Intent(context, LosingActivity.class);
+                        //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
+                        intentG.putExtra("Steps taken", wiz.getRobot().getOdometerReading());
+                        intentG.putExtra("Shortest steps", totalSteps-1);
+                        intentG.putExtra("Energy", (int)wiz.getEnergyConsumption());
+                        intentG.putExtra("Robot", "y");
+                        //start LosingActivity
                         startActivity(intentG);
                     }else{
                         wiz.drive1Step2Exit();
@@ -433,6 +452,12 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 st.show();
                 //make a log message saying the button was clicked
                 Log.v("Button", "Start/pause pressed");
+                if(paused){
+                    paused = false;
+                }else{
+                    paused = true;
+                    notifyAll();
+                }
             }
         });
 
