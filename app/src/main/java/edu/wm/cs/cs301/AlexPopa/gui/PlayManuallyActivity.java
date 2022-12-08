@@ -3,6 +3,7 @@ package edu.wm.cs.cs301.AlexPopa.gui;
 import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.*;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
         MazePanel panel = (MazePanel) findViewById(R.id.mazePanel3);
 
         Information info = Information.getInformation();
+
+        MediaPlayer music = MediaPlayer.create(this, R.raw.hkpath);
+        music.start();
+        music.setLooping(true);
 
         StatePlaying state = new StatePlaying();
         state.setMaze(info.getMaze());
@@ -146,6 +151,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //increase count
                 if(state.isFinished()){
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    music.stop();
+                    music.release();
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
                     intentG.putExtra("Steps taken", count);
                     intentG.putExtra("Shortest steps", totalSteps);
@@ -175,6 +182,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //increase count
                 if(state.isFinished()){
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    music.stop();
+                    music.release();
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
                     intentG.putExtra("Steps taken", count);
                     intentG.putExtra("Shortest steps", totalSteps);
@@ -238,12 +247,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
         });
 
         //temporary button that goes to the win screen
-        Button shortcut = (Button) findViewById(R.id.Shortcut);
+    /*    Button shortcut = (Button) findViewById(R.id.Shortcut);
         shortcut.setOnClickListener(new View.OnClickListener(){
             /**
              * on click of the button
              */
-            public void onClick(View view){
+        /*    public void onClick(View view){
                 //make a pop up message saying the button was clicked
                 Snackbar cut = Snackbar.make(findViewById(android.R.id.content), "Pressed shortcut", 500);
                 cut.show();
@@ -258,6 +267,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //start WinningActivity
                 startActivity(intentG);
             }
-        });
+        });*/
     }
 }
