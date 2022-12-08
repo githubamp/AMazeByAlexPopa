@@ -137,6 +137,13 @@ public class StatePlaying{
     	seenCells = null;
     	cr = null;
     }
+
+    private boolean robotTime;
+
+    public void setRobotTime(boolean b){
+        robotTime = b;
+    }
+
     /**
      * Provides the maze to play.
      * @param maze a fully operational complete maze ready to play
@@ -163,17 +170,17 @@ public class StatePlaying{
         // keep the reference to the panel for drawing
         this.panel = panel;
         // if the wizard is active, always have the maze and solution on screen
-        /*if(controller.isWizardTime() || controller.isFollowerTime() || controller.isSmartTime()) {
+        if(robotTime == true) {
         	showMaze = true;
             showSolution = true;
 	        mapMode = true;
 
 	    // else have it turned off
-        }else {*/
+        }else {
 	        showMaze = false ;
 	        showSolution = false ;
 	        mapMode = false;
-        //}
+        }
         
         // adjust internal state of maze model
         // init data structure for visible walls
@@ -217,14 +224,7 @@ public class StatePlaying{
         setCurrentPosition(start[0],start[1]) ;
         cd = CardinalDirection.East;
 	}
- 
-	/**
-     * Switches the controller to the final screen
-     * @param pathLength gives the length of the path
-     */
-    
 
-    
     /**
      * The method provides an appropriate response to user keyboard input. 
      * The control calls this method to communicate input and delegate its handling.

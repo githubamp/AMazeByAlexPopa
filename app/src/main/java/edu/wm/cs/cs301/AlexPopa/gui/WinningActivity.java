@@ -1,7 +1,10 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.EditText;
 
@@ -24,6 +27,10 @@ public class WinningActivity  extends AppCompatActivity {
         setContentView(R.layout.win);
         //get the information from the intent that started this activity
         Intent information = getIntent();
+
+        final Vibrator vib =  (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+        //vib.cancel();
 
         //receive the information from the intent and make a variable for each appropriate value (pathlength, shortest path, and energy spent)
         int pathLength = information.getIntExtra("Steps taken", 0);

@@ -113,26 +113,6 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                     }else{
                         wiz.drive1Step2Exit();
                         energyConsumption.setProgress(3500 - (int)wiz.getEnergyConsumption());
-                        if(wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())){
-                            left.setBackgroundColor(Color.RED);
-                        }else{
-                            left.setBackgroundColor(Color.GREEN);
-                        }
-                        if(wiz.getRobot().getSensor(Robot.Direction.RIGHT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.RIGHT)).getOperational())){
-                            right.setBackgroundColor(Color.RED);
-                        }else{
-                            right.setBackgroundColor(Color.GREEN);
-                        }
-                        if(wiz.getRobot().getSensor(Robot.Direction.BACKWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.BACKWARD)).getOperational())){
-                            backward.setBackgroundColor(Color.RED);
-                        }else{
-                            backward.setBackgroundColor(Color.GREEN);
-                        }
-                        if(wiz.getRobot().getSensor(Robot.Direction.FORWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.FORWARD)).getOperational())){
-                            forward.setBackgroundColor(Color.RED);
-                        }else{
-                            forward.setBackgroundColor(Color.GREEN);
-                        }
                         mHandler.postDelayed(this, speedAnimation*100);
                     }
                 } catch (Exception e) {
@@ -176,6 +156,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         Intent assist = getIntent();
 
         StatePlaying state = new StatePlaying();
+        state.setRobotTime(true);
         state.setMaze(info.getMaze());
         Maze maze = state.getMaze();
         int[] start = maze.getStartingPosition();
@@ -278,7 +259,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 wiz = new Wizard(uRobot, maze);
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
                 try{
-
+                    Thread.sleep(1300);
                 }catch(Exception e){
 
                 }
@@ -320,6 +301,39 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
         try {
             if (mStartTime == 0L) {
+                Thread drive = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while(!wiz.getRobot().isAtExit()){
+                            if(wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())){
+                                left.setBackgroundColor(Color.RED);
+                            }else{
+                                left.setBackgroundColor(Color.GREEN);
+                            }
+                            if(wiz.getRobot().getSensor(Robot.Direction.RIGHT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.RIGHT)).getOperational())){
+                                right.setBackgroundColor(Color.RED);
+                            }else{
+                                right.setBackgroundColor(Color.GREEN);
+                            }
+                            if(wiz.getRobot().getSensor(Robot.Direction.BACKWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.BACKWARD)).getOperational())){
+                                backward.setBackgroundColor(Color.RED);
+                            }else{
+                                backward.setBackgroundColor(Color.GREEN);
+                            }
+                            if(wiz.getRobot().getSensor(Robot.Direction.FORWARD) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.FORWARD)).getOperational())){
+                                forward.setBackgroundColor(Color.RED);
+                            }else{
+                                forward.setBackgroundColor(Color.GREEN);
+                            }
+                            try {
+                                Thread.sleep(30);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+                drive.start();
                 mStartTime = System.currentTimeMillis();
                 mHandler.removeCallbacks(mUpdateTimeTask);
                 mHandler.postDelayed(mUpdateTimeTask, 100);
@@ -369,8 +383,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLESOLUTION, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
-                solut.show();
+                //Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
+                //solut.show();
                 //make a log message saying the button was clicked
                 Log.v("Button", "Solution pressed");
             }
@@ -416,12 +430,11 @@ public class PlayAnimationActivity  extends AppCompatActivity {
              */
             public void onClick(View view){
                 //make a pop up message saying the button was clicked
-                Snackbar st = Snackbar.make(findViewById(android.R.id.content), "Start/pause pressed", 500);
-                st.show();
+                //Snackbar st = Snackbar.make(findViewById(android.R.id.content), "Start/pause pressed", 500);
+                //st.show();
                 //make a log message saying the button was clicked
                 Log.v("Button", "Start/pause pressed");
                 if(paused == true){
-                    //notifyAll();
                     paused = false;
                     mStartTime = 0L;
                     if (mStartTime == 0L) {
