@@ -1,6 +1,7 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -35,6 +36,10 @@ public class AMazeActivity extends AppCompatActivity {
 
         //seekbar that represents difficulty
         SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
+
+        MediaPlayer music = MediaPlayer.create(this, R.raw.hkintro);
+        music.start();
+        music.setLooping(true);
 
         seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             /**
@@ -118,8 +123,10 @@ public class AMazeActivity extends AppCompatActivity {
                 //make a log statement
                 Log.v("Explore", "Explore pressed");
                 //make a message appear from the bottom of the screen
-                Snackbar ex = Snackbar.make(findViewById(android.R.id.content), "Explore pressed", 1000);
-                ex.show();
+                /*Snackbar ex = Snackbar.make(findViewById(android.R.id.content), "Explore pressed", 1000);
+                ex.show();*/
+                music.stop();
+                music.release();
                 Intent intentG = new Intent(view.getContext(), GeneratingActivity.class);
                 //send all information to GeneratingActivity (skill level, rooms, generator, and seed)
                 intentG.putExtra("Skill level", seekbar.getProgress());
@@ -169,7 +176,8 @@ public class AMazeActivity extends AppCompatActivity {
                     intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
                     intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
                     intentG.putExtra("Seed", Math.random()+100);*/
-
+                    music.stop();
+                    music.release();
                     info.setSkill(info.getPrevSkill());
                     info.setSeed(info.getPrevSeed());
                     info.setRooms(info.getPrevRooms());

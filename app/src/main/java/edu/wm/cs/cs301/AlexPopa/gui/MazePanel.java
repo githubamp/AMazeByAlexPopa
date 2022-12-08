@@ -270,7 +270,7 @@ public class MazePanel extends View implements P7PanelF22{
         int color = ColorUtils.blendARGB(Color.YELLOW, Color.BLACK, (float)percentToExit/100);
         int color2 = ColorUtils.blendARGB(Color.GREEN, Color.GRAY, (float)percentToExit/100);
 
-        paint.setColor(color);
+        paint.setColor(color2);
 
         //draw gray rectangle on top of the screen
         c.drawRect(0, 0, c.getWidth(), c.getHeight()/2, paint);
@@ -283,7 +283,7 @@ public class MazePanel extends View implements P7PanelF22{
         /*LinearGradient grad2 = new LinearGradient(c.getWidth(), (c.getHeight()*(percentToExit/100)), c.getWidth(), c.getHeight()+1, Color.YELLOW, Color.BLACK, Shader.TileMode.CLAMP);
         paint.setShader(grad2);*/
 
-        paint.setColor(color2);
+        paint.setColor(color);
 
         //draw black rectangle on bottom of the screen
         c.drawRect(0, c.getHeight()/2, c.getWidth(), c.getHeight(), paint);

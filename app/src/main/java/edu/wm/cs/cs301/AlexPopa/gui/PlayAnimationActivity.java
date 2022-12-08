@@ -9,6 +9,7 @@ import static edu.wm.cs.cs301.AlexPopa.gui.Constants.UserInput.ZOOMOUT;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,6 +49,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
     private int totalSteps;
 
+    private MediaPlayer music;
+
     private Thread mUpdateTimeTask = new Thread() {
 
         int speedAnimation = 1;
@@ -61,6 +64,12 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             ProgressBar energyConsumption = (ProgressBar) findViewById(R.id.energy);
 
             SeekBar speedbar = (SeekBar) findViewById(R.id.speed);
+
+            if(music == null){
+                music = MediaPlayer.create(PlayAnimationActivity.this, R.raw.hkpath);
+                music.start();
+                music.setLooping(true);
+            }
 
             speedbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 /**
@@ -94,6 +103,8 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 try {
                     if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
                         Intent intentG = new Intent(context, WinningActivity.class);
+                        music.stop();
+                        music.release();
                         //populate the intent with information regarding the steps taken, the shortest path, the energy consumption, and the fact that a robot was used
                         intentG.putExtra("Steps taken", wiz.getRobot().getOdometerReading());
                         intentG.putExtra("Shortest steps", totalSteps-1);
