@@ -255,7 +255,7 @@ public class MazePanel extends View implements P7PanelF22{
     @Override
     public void addBackground(float percentToExit) {
 
-        map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
+        //map = Bitmap.createBitmap(919, 919, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(map);
 
         //create a temporary canvas

@@ -156,7 +156,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         Intent assist = getIntent();
 
         StatePlaying state = new StatePlaying();
-        state.setRobotTime(true);
+        //state.setRobotTime(true);
         state.setMaze(info.getMaze());
         Maze maze = state.getMaze();
         int[] start = maze.getStartingPosition();
