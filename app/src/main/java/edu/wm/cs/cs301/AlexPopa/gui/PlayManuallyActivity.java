@@ -134,6 +134,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                if(state.wayIsClear(1)){
+                    count++;
+                }
                 state.handleUserInput(UP, 0);
                 //make a pop up message saying the button was clicked
                 Snackbar u = Snackbar.make(findViewById(android.R.id.content), "Pressed up", 500);
@@ -141,7 +144,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Up pressed");
                 //increase count
-                count++;
                 if(state.isFinished()){
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
@@ -161,6 +163,9 @@ public class PlayManuallyActivity extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                if(state.wayIsClear(1)){
+                    count++;
+                }
                 state.handleUserInput(DOWN, 0);
                 //make a pop up message saying the button was clicked
                 Snackbar d = Snackbar.make(findViewById(android.R.id.content), "Pressed down", 500);
@@ -168,7 +173,6 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Down pressed");
                 //increase count
-                count++;
                 if(state.isFinished()){
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
