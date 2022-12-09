@@ -43,16 +43,19 @@ public class PlayAnimationActivity  extends AppCompatActivity {
 
     private Context context = this;
 
+    //keeps track if screen is paused
     private boolean paused = false;
 
-    private int labelNo    = 0;
-    private long currTime  = 0L;
     private long mStartTime = 0L;
 
+    //stores all steps taken
     private int totalSteps;
 
     private MediaPlayer music;
 
+    /**
+     * thread for making the driver run
+     */
     private Thread mUpdateTimeTask = new Thread() {
 
         int speedAnimation = 1;
@@ -95,17 +98,17 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     //make a log statement
                     Log.v("Seekbar", "Speed pressed");
-                    //make a message appear from the bottom of the screen
-                    /*Snackbar speed = Snackbar.make(findViewById(android.R.id.content), "Speed pressed", 500);
-                    speed.show();*/
+                    //set animation speed to be the selected value on the bar
                     speedAnimation = progress;
                 }
             });
 
             if(wiz != null){ //if wizard is being used
                 try {
-                    if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){ // win
+                    //conditions for winning
+                    if(wiz.getRobot().isAtExit() && wiz.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
                         Intent intentG = new Intent(context, WinningActivity.class);
+                        //stop music
                         music.stop();
                         music.release();
                         Log.v("End", "Win");
@@ -116,8 +119,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         intentG.putExtra("Robot", "y");
                         //start WinningActivity
                         startActivity(intentG);
-                    }else if(wiz.getRobot().hasStopped()) { //lose
+                    //conditions for losing
+                    }else if(wiz.getRobot().hasStopped()) {
                         Intent intentG = new Intent(context, LosingActivity.class);
+                        //stop music
                         music.stop();
                         music.release();
                         Log.v("End", "Lose");
@@ -128,10 +133,13 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         intentG.putExtra("Robot", "y");
                         //start LosingActivity
                         startActivity(intentG);
-                    }else{ //move
+                    }else{
                         Log.v("Movement", "Moving");
+                        //move
                         wiz.drive1Step2Exit();
+                        //update energy bar
                         energyConsumption.setProgress(3500 - (int)wiz.getEnergyConsumption());
+                        //call this again
                         mHandler.postDelayed(this, speedAnimation*100);
                     }
                 } catch (Exception e) {
@@ -139,8 +147,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 }
             }else if(wallFollower != null){ //if wall follower is being used
                 try {
-                    if(wallFollower.getRobot().isAtExit() && wallFollower.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){ //win
+                    //conditions for winning
+                    if(wallFollower.getRobot().isAtExit() && wallFollower.getRobot().canSeeThroughTheExitIntoEternity(Robot.Direction.FORWARD)){
                         Intent intentG = new Intent(context, WinningActivity.class);
+                        //stop music
                         music.stop();
                         music.release();
                         Log.v("End", "Win");
@@ -151,8 +161,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         intentG.putExtra("Robot", "y");
                         //start WinningActivity
                         startActivity(intentG);
-                    }else if(wallFollower.getRobot().hasStopped()) { //lose
+                    //conditions for losing
+                    }else if(wallFollower.getRobot().hasStopped()) {
                         Intent intentG = new Intent(context, LosingActivity.class);
+                        //stop music
                         music.stop();
                         music.release();
                         Log.v("End", "Lose");
@@ -163,10 +175,13 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                         intentG.putExtra("Robot", "y");
                         //start LosingActivity
                         startActivity(intentG);
-                    }else{ //move
+                    }else{
                         Log.v("Movement", "Moving");
+                        //move
                         wallFollower.drive1Step2Exit();
+                        //update progress bar
                         energyConsumption.setProgress(3500 - (int)wallFollower.getEnergyConsumption());
+                        //call this again
                         mHandler.postDelayed(this, speedAnimation*100);
                     }
                 } catch (Exception e) {
@@ -176,17 +191,25 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         }
     };
 
-    private void updateText() { //method to update visual sensors
+    /**
+     *  method to update visual sensors
+     *  make the text representing the backward sensor green to represent that it's functional
+     *  turn it red when it is not
+     */
+    private void updateText() {
         TextView left = (TextView) findViewById(R.id.LeftSensor);
         TextView right = (TextView) findViewById(R.id.RightSensor);
         TextView forward = (TextView) findViewById(R.id.Forward);
         TextView backward = (TextView) findViewById(R.id.Backward);
 
+        //if wizard is currently being used
         if (wiz != null) {
+            //create a separate thread to update text
             Thread wizTextUpdate = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (!wiz.getRobot().isAtExit()) { //while the robot is running
+                    //while the wizard is running
+                    while (!wiz.getRobot().isAtExit()) {
                         if (wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wiz.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())) {
                             Log.v("Color", "Turning Red");
                             left.setBackgroundColor(Color.RED);
@@ -223,11 +246,14 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                     }
                 }
             });
+            //start the thread
             wizTextUpdate.start();
-        }else if (wallFollower != null) { //while the wallFollower is running
+        //while the wallFollower is running
+        }else if (wallFollower != null) {
             Thread wallTextUpdate = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    //while the wall follower is running
                     while (!wallFollower.getRobot().isAtExit()) {
                         if (wallFollower.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor && !(((UnreliableSensor) wallFollower.getRobot().getSensor(Robot.Direction.LEFT)).getOperational())) {
                             Log.v("Color", "Turning Red");
@@ -265,6 +291,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                     }
                 }
             });
+            //start the thread
             wallTextUpdate.start();
         }
     }
@@ -298,24 +325,15 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         TextView forward = (TextView) findViewById(R.id.Forward);
         TextView backward = (TextView) findViewById(R.id.Backward);
 
-        //make the text representing the left sensor green to represent that it's functional
-        //turn it red when it is not
+        //initial colors
         left.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the right sensor green to represent that it's functional
-        //turn it red when it is not
         right.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the forward sensor green to represent that it's functional
-        //turn it red when it is not
         forward.setBackgroundColor(Color.GREEN);
-
-        //make the text representing the backward sensor green to represent that it's functional
-        //turn it red when it is not
         backward.setBackgroundColor(Color.GREEN);
 
         if(info.getDriver() instanceof WallFollower){ //create appropriate sensors based on configuration
             if(info.getPrevConfig().equals("Premium")){
+                //create a reliable wallfollower
                 ReliableRobot rRobot = new ReliableRobot(state);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -327,6 +345,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(rRobot);
                 info.setPrevDriver(wallFollower);
             }else if(info.getPrevConfig().equals("Mediocre")){
+                //create a wallfollower with left and right unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -334,6 +353,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
                 wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.RIGHT, 4000, 2000);
+                //delay between failings
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -345,6 +365,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(uRobot);
                 info.setPrevDriver(wallFollower);
             }else if(info.getPrevConfig().equals("Soso")){
+                //create a wallfollower with forward and backward unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -352,6 +373,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
                 wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.BACKWARD, 4000, 2000);
+                //delay between failings
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -363,6 +385,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(uRobot);
                 info.setPrevDriver(wallFollower);
             }else if(info.getPrevConfig().equals("Shaky")){
+                //create a wallfollower with all unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -370,6 +393,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wallFollower = new WallFollower(uRobot, maze);
                 wallFollower.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                //delay between failings
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -395,6 +419,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             }
         }else if(info.getDriver() instanceof Wizard){
             if(info.getPrevConfig().equals("Premium")){
+                //create a reliable wizard
                 ReliableRobot rRobot = new ReliableRobot(state);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 rRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -406,6 +431,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(rRobot);
                 info.setPrevDriver(wiz);
             }else if(info.getPrevConfig().equals("Mediocre")){
+                //create a wizard with left and right unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -413,6 +439,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.LEFT, 4000, 2000);
+                //sensor delay
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -424,6 +451,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(uRobot);
                 info.setPrevDriver(wiz);
             }else if(info.getPrevConfig().equals("Soso")){
+                //create a wizard with forward and backward unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -431,6 +459,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new ReliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                //sensor delay
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -442,6 +471,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 info.setRobot(uRobot);
                 info.setPrevDriver(wiz);
             }else if(info.getPrevConfig().equals("Shaky")){
+                //create a wizard with all unreliable sensors
                 UnreliableRobot uRobot = new UnreliableRobot(state);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.FORWARD), Robot.Direction.FORWARD);
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.BACKWARD), Robot.Direction.BACKWARD);
@@ -449,6 +479,7 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 uRobot.addDistanceSensor(new UnreliableSensor(Robot.Direction.RIGHT), Robot.Direction.RIGHT);
                 wiz = new Wizard(uRobot, maze);
                 wiz.getRobot().startFailureAndRepairProcess(Robot.Direction.FORWARD, 4000, 2000);
+                //sensor delay
                 try{
                     Thread.sleep(1300);
                 }catch(Exception e){
@@ -474,8 +505,10 @@ public class PlayAnimationActivity  extends AppCompatActivity {
             }
         }
 
+        //start the text threads
         updateText();
 
+        //start moving the robot
         try {
             mStartTime = System.currentTimeMillis();
             mHandler.removeCallbacks(mUpdateTimeTask);
@@ -576,15 +609,18 @@ public class PlayAnimationActivity  extends AppCompatActivity {
                 //st.show();
                 //make a log message saying the button was clicked
                 Log.v("Button", "Start/pause pressed");
+                //if screen is currently paused
                 if(paused == true){
                     paused = false;
                     mStartTime = 0L;
+                    //restart
                     if (mStartTime == 0L) {
                         mStartTime = System.currentTimeMillis();
                         mHandler.removeCallbacks(mUpdateTimeTask);
                         mHandler.postDelayed(mUpdateTimeTask, 100);
                     }
                 }else{
+                    //pause the screen
                     paused = true;
                     mHandler.removeCallbacks(mUpdateTimeTask);
                 }
@@ -592,8 +628,11 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         });
     }
 
+    /**
+     *  if the back button was pressed, stop the appropriate failure and repair processes
+     */
     @Override
-    public void onBackPressed(){ //if the back button was pressed, stop the appropriate failure and repair processes
+    public void onBackPressed(){
         if (wiz != null && wiz.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor) {
             wiz.getRobot().stopFailureAndRepairProcess(Robot.Direction.LEFT);
         } else if (wallFollower != null && wallFollower.getRobot().getSensor(Robot.Direction.LEFT) instanceof UnreliableSensor){
@@ -628,8 +667,11 @@ public class PlayAnimationActivity  extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    /**
+     * keeps track if back button was pressed
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) { //checks if back button was pressed
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();

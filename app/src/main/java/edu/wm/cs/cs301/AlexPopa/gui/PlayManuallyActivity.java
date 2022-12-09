@@ -141,6 +141,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                //increase step count
                 if(state.wayIsClear(1)){
                     count++;
                 }
@@ -154,6 +155,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 if(state.isFinished()){
                     Log.v("End", "Won");
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    //stop the music
                     music.stop();
                     music.release();
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
@@ -173,6 +175,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
              * on click of the button
              */
             public void onClick(View view){
+                //increase step count
                 if(state.wayIsClear(1)){
                     count++;
                 }
@@ -186,6 +189,7 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 if(state.isFinished()){
                     Log.v("End", "Won");
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
+                    //stop the music
                     music.stop();
                     music.release();
                     //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
@@ -247,28 +251,5 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 count++;
             }
         });
-
-        //temporary button that goes to the win screen
-    /*    Button shortcut = (Button) findViewById(R.id.Shortcut);
-        shortcut.setOnClickListener(new View.OnClickListener(){
-            /**
-             * on click of the button
-             */
-        /*    public void onClick(View view){
-                //make a pop up message saying the button was clicked
-                Snackbar cut = Snackbar.make(findViewById(android.R.id.content), "Pressed shortcut", 500);
-                cut.show();
-                //make a log message saying the button was clicked
-                Log.v("Cheats", "Shortcut pressed");
-                //make an intent to go to WinningActivity
-                Intent intentG = new Intent(view.getContext(), WinningActivity.class);
-                //populate the intent with information regarding the steps taken (count), the shortest path, and the fact no robot was used
-                intentG.putExtra("Steps taken", count);
-                intentG.putExtra("Shortest steps", totalSteps);
-                intentG.putExtra("Robot", "n");
-                //start WinningActivity
-                startActivity(intentG);
-            }
-        });*/
     }
 }

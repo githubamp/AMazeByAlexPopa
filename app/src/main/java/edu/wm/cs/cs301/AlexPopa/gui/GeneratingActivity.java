@@ -163,12 +163,14 @@ public class GeneratingActivity extends AppCompatActivity {
         load.start();
     }
 
+    /**
+     * method for updating the progress bar
+     */
     public void update(ProgressBar loading){
         Thread up = new Thread(new Runnable(){
             public void run(){
-
+                //setup maze factory and orders
                 MazeFactory factory = new MazeFactory();
-                System.out.println("here " + info.getSkill() + " " + info.getGen() + " " + info.getRooms() + " " + info.getSeed());
                 DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
                 factory.order(order);
 
@@ -179,6 +181,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 info.setPrevRooms(info.getRooms());
                 info.setPrevSeed(info.getSeed());
 
+                //update the progress bar
                 while(loading.getProgress() != loading.getMax()){
                     loading.setProgress(order.getProgress());
                     try {
@@ -187,9 +190,10 @@ public class GeneratingActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
+                //wait till everything is finished
                 factory.waitTillDelivered();
 
+                //wait just in case
                 while(factory.getBuildThread().isAlive()){
                     try {
                         Thread.sleep(100);
@@ -201,6 +205,7 @@ public class GeneratingActivity extends AppCompatActivity {
                 info.setPrevMaze(order.getMaze());
             }
         });
+        //start the thread
         up.start();
     }
 }
