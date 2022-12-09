@@ -76,7 +76,7 @@ public class UnreliableRobot extends ReliableRobot{
 							System.out.println("waiting for sensor to repair");
 						}
 					} catch (InterruptedException e) {
-					}	
+					}
 					//throw new UnsupportedOperationException();
 				}
 			}
@@ -88,31 +88,31 @@ public class UnreliableRobot extends ReliableRobot{
 							System.out.println("waiting for sensor to repair");
 						}
 					} catch (InterruptedException e) {
-					}	
+					}
 					//throw new UnsupportedOperationException();
 				}
 			}
 			case FORWARD:{
 				if(forwardSensor instanceof UnreliableSensor && ((UnreliableSensor) forwardSensor).getOperational() == false) {	//wait for sensor to work
 					try {
-						while((leftSensor instanceof UnreliableSensor && ((UnreliableSensor)leftSensor).getOperational() == false) || (rightSensor instanceof UnreliableSensor && ((UnreliableSensor)rightSensor).getOperational() == false) || (backwardSensor instanceof UnreliableSensor && ((UnreliableSensor)backwardSensor).getOperational() == false) || (forwardSensor instanceof UnreliableSensor && ((UnreliableSensor)forwardSensor).getOperational() == false)) {
+						while(((leftSensor instanceof UnreliableSensor) && ((UnreliableSensor)leftSensor).getOperational() == false) || ((rightSensor instanceof UnreliableSensor) && ((UnreliableSensor)rightSensor).getOperational() == false) || ((backwardSensor instanceof UnreliableSensor) && ((UnreliableSensor)backwardSensor).getOperational() == false) || ((forwardSensor instanceof UnreliableSensor) && ((UnreliableSensor)forwardSensor).getOperational() == false)) {
 							Thread.sleep(50);
 							System.out.println("waiting for sensor to repair");
 						}
 					} catch (InterruptedException e) {
-					}	
+					}
 					//throw new UnsupportedOperationException();
 				}
 			}
 			case BACKWARD:{
-				if(backwardSensor instanceof UnreliableSensor && ((UnreliableSensor) leftSensor).getOperational() == false) {	//wait for sensor to work
+				if(backwardSensor instanceof UnreliableSensor && ((UnreliableSensor) backwardSensor).getOperational() == false) {	//wait for sensor to work
 					try {
-						while((leftSensor instanceof UnreliableSensor && ((UnreliableSensor)leftSensor).getOperational() == false) || (rightSensor instanceof UnreliableSensor && ((UnreliableSensor)rightSensor).getOperational() == false) || (backwardSensor instanceof UnreliableSensor && ((UnreliableSensor)backwardSensor).getOperational() == false) || (forwardSensor instanceof UnreliableSensor && ((UnreliableSensor)forwardSensor).getOperational() == false)) {
+						while(((leftSensor instanceof UnreliableSensor) && ((UnreliableSensor)leftSensor).getOperational() == false) || ((rightSensor instanceof UnreliableSensor) && ((UnreliableSensor)rightSensor).getOperational() == false) || ((backwardSensor instanceof UnreliableSensor) && ((UnreliableSensor)backwardSensor).getOperational() == false) || ((forwardSensor instanceof UnreliableSensor) && ((UnreliableSensor)forwardSensor).getOperational() == false)) {
 							Thread.sleep(50);
 							System.out.println("waiting for sensor to repair");
 						}
 					} catch (InterruptedException e) {
-					}	
+					}
 				}
 			}
 		}
@@ -133,7 +133,7 @@ public class UnreliableRobot extends ReliableRobot{
 				System.out.println("waiting for sensor to repair");
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		super.rotate(turn);
 	}
