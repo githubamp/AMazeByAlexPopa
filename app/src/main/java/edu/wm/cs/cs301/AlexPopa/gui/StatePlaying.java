@@ -287,6 +287,7 @@ public class StatePlaying{
                 setCurrentPosition(px + tmpDxDy[0], py + tmpDxDy[1]) ;
                 draw(cd.angle(), 0) ;
             }
+            cr.paintComponent(panel);
             break;
         case TOGGLELOCALMAP: // show local information: current position and visible walls
             // precondition for showMaze and showSolution to be effective

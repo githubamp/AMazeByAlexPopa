@@ -130,7 +130,7 @@ public class CompassRose {
          */
         drawBackground(g2);
         drawArms(g2, armLength, armWidth);
-        drawBorderCircle(g2, width); // note: not currently visible due to color settings
+        //drawBorderCircle(g2, width); // note: not currently visible due to color settings
         drawDirectionMarker(g2, width);
     }
 
@@ -253,7 +253,7 @@ public class CompassRose {
 	 * @param g2 The graphics object to draw on
 	 * @param width
 	 */
-	private void drawBorderCircle(MazePanel g2, int width) {
+/*	private void drawBorderCircle(MazePanel g2, int width) {
 		// determine x,y coordinates for arc
 		final int x = centerX - width / 2 + CIRCLE_BORDER;
 		final int y = centerY - width / 2 + CIRCLE_BORDER;
@@ -266,7 +266,7 @@ public class CompassRose {
         g2.addArc(x, y, w, w, 45, 180);
         g2.setColor(ColorTheme.getColor(COMPASSROSE_CIRCLE_HIGHLIGHT));
         g2.addArc(x, y, w, w, 180 + 45, 180);
-	}
+	}*/
 
 	/**
 	 * Draw the letters N, E, S, W for directions on the compass rose.
