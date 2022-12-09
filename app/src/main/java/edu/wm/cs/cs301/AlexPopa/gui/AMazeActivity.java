@@ -1,6 +1,7 @@
 package edu.wm.cs.cs301.AlexPopa.gui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,47 @@ import edu.wm.cs.cs301.AlexPopa.generation.Order;
  */
 public class AMazeActivity extends AppCompatActivity {
 
+    public static final String PREFS = "prefs";
+    public static final String xy = "x";
+    public static final String ROOMS = "Yes";
+    public static final String GEN = "DFS";
+    public static final String SKILL = "0";
+    public static final String SEED = "86422";
+
+
+    private int diff;
+    private boolean ro;
+    private String generate;
+    private int seed;
+
+    public SeekBar seekbar;
+    public Spinner spinner;
+    public Spinner spinner2;
+
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if(spinner.getSelectedItem().equals("Yes")){
+            editor.putBoolean(ROOMS, true);
+        }else{
+            editor.putBoolean(ROOMS, false);
+        }
+        editor.putString(GEN, (String) spinner2.getSelectedItem());
+        editor.putInt(SKILL, seekbar.getProgress());
+        editor.putInt(SEED, seed);
+        editor.apply();
+        Log.v("Data", "Data saved");
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
+        ro = sharedPreferences.getBoolean(ROOMS, true);
+        generate = sharedPreferences.getString(GEN, "");
+        diff = sharedPreferences.getInt(SKILL, 0);
+        seed = sharedPreferences.getInt(SEED, 86422);
+        Log.v("Data", "Data loaded");
+    }
+
     /**
      * when the activity is created
      */
@@ -35,7 +77,7 @@ public class AMazeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //seekbar that represents difficulty
-        SeekBar seekbar = (SeekBar) findViewById(R.id.seekBar);
+        seekbar = (SeekBar) findViewById(R.id.seekBar);
 
         MediaPlayer music = MediaPlayer.create(this, R.raw.hkintro);
         music.start();
@@ -71,7 +113,7 @@ public class AMazeActivity extends AppCompatActivity {
         Information info = Information.getInformation();
 
         //spinner that accepts whether someone wants rooms in the maze or not
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
         //specifying the choices
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.yesno_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -86,14 +128,14 @@ public class AMazeActivity extends AppCompatActivity {
                 //make a log statement
                 Log.v("Spinner", "Yes/no pressed");
                 //make a message appear from the bottom of the screen
-                Snackbar spin1 = Snackbar.make(findViewById(android.R.id.content), "Yes/no pressed", 500);
-                spin1.show();
+                /*Snackbar spin1 = Snackbar.make(findViewById(android.R.id.content), "Yes/no pressed", 500);
+                spin1.show();*/
                 return false;
             }
         });
 
         //spinner that accepts which maze type they want to generate
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2);
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.generator_array, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter2);
@@ -133,6 +175,7 @@ public class AMazeActivity extends AppCompatActivity {
                 intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
                 intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
                 intentG.putExtra("Seed", Math.random()+100);
+
                 info.setSkill(seekbar.getProgress());
                 if(spinner.getSelectedItem().equals("Yes")){
                     info.setRooms(true);
@@ -148,7 +191,9 @@ public class AMazeActivity extends AppCompatActivity {
                     info.setGen(Order.Builder.Boruvka);
                 }
                 Random rnd = new Random();
-                info.setSeed(rnd.nextInt(86422));
+                seed = rnd.nextInt(86422);
+                saveData();
+                info.setSeed(seed);
                 //start GeneratingActivity
                 startActivity(intentG);
             }
@@ -162,31 +207,40 @@ public class AMazeActivity extends AppCompatActivity {
              */
             public void onClick(View view){
                 Log.v("Revisit", "Revisit pressed");
-                if(info.getPrevMaze() == null){
+                /*if(info.getPrevMaze() == null){
                     Snackbar re = Snackbar.make(findViewById(android.R.id.content), "Please play through a maze first", 1000);
                     re.show();
-                }else {
+                }else {*/
                     Intent intentG;
-                    if (info.getPrevDriver() instanceof WallFollower || info.getPrevDriver() instanceof Wizard) {
+                    /*if (info.getPrevDriver() instanceof WallFollower || info.getPrevDriver() instanceof Wizard) {
                         intentG = new Intent(view.getContext(), PlayAnimationActivity.class);
                     } else {
                         intentG = new Intent(view.getContext(), PlayManuallyActivity.class);
-                    }
+                    }*/
+                    intentG = new Intent(view.getContext(), GeneratingActivity.class);
+
                     /*intentG.putExtra("Skill level", seekbar.getProgress());
                     intentG.putExtra("Rooms", (String) spinner.getSelectedItem());
                     intentG.putExtra("Generator", (String) spinner2.getSelectedItem());
                     intentG.putExtra("Seed", Math.random()+100);*/
                     music.stop();
                     music.release();
-                    info.setSkill(info.getPrevSkill());
-                    info.setSeed(info.getPrevSeed());
-                    info.setRooms(info.getPrevRooms());
-                    info.setGen(info.getPrevGen());
+                    loadData();
+                    info.setSkill(diff);
+                    info.setSeed(seed);
+                    info.setRooms(ro);
+                    if(generate.equals("DFS")){
+                        info.setGen(Order.Builder.DFS);
+                    }else if(generate.equals("PRIM")){
+                        info.setGen(Order.Builder.Prim);
+                    }else{
+                        info.setGen(Order.Builder.Boruvka);
+                    }
                     info.setMaze(info.getPrevMaze());
-                    info.setRobot((info.getPrevRobot()));
-                    info.setDriver(info.getPrevDriver());
+                    //info.setRobot((info.getPrevRobot()));
+                    //info.setDriver(info.getPrevDriver());
                     startActivity(intentG);
-                }
+
             }
         });
     }

@@ -57,8 +57,8 @@ public class GeneratingActivity extends AppCompatActivity {
                 //make a log statement
                 Log.v("Spinner", "Driver pressed");
                 //make a message appear from the bottom of the screen
-                Snackbar drive = Snackbar.make(findViewById(android.R.id.content), "Driver pressed", 500);
-                drive.show();
+                /*Snackbar drive = Snackbar.make(findViewById(android.R.id.content), "Driver pressed", 500);
+                drive.show();*/
                 return false;
             }
         });
@@ -80,8 +80,8 @@ public class GeneratingActivity extends AppCompatActivity {
                 //make a log statement
                 Log.v("Spinner", "Configuration pressed");
                 //make a message appear from the bottom of the screen
-                Snackbar config = Snackbar.make(findViewById(android.R.id.content), "Configuration pressed", 500);
-                config.show();
+                /*Snackbar config = Snackbar.make(findViewById(android.R.id.content), "Configuration pressed", 500);
+                config.show();*/
                 return false;
             }
         });
@@ -95,7 +95,6 @@ public class GeneratingActivity extends AppCompatActivity {
              * run the thread to load the progressbar
              */
             public void run(){
-
                 //while the progress bar isn't full
                 while(loading.getProgress() != loading.getMax()){
                     //if someone has chosen a driver but the bar is still loading
@@ -107,20 +106,10 @@ public class GeneratingActivity extends AppCompatActivity {
                         shown = true;
                     }
                     try {
-                        //represents the maze generating by making the bar load by 1% every 50 milliseconds
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    /*loading.post(new Runnable() {
-                        @Override
-                        /**
-                         * increment the progress bar by 1
-                         */
-                        /*public void run() {
-                            loading.incrementProgressBy(1);
-                        }
-                    });*/
                 }
                 //if the bar is finished loading and the user hasn't chosen a driver yet
                 if(spinner.getSelectedItem().equals("Select:")) {
@@ -183,6 +172,8 @@ public class GeneratingActivity extends AppCompatActivity {
                 DefaultOrder order = new DefaultOrder(info.getSkill(), info.getGen(), info.getRooms(), info.getSeed());
                 factory.order(order);
 
+                Log.v("gen", "generating maze");
+
                 info.setPrevSkill(info.getSkill());
                 info.setPrevGen(info.getGen());
                 info.setPrevRooms(info.getRooms());
@@ -198,6 +189,14 @@ public class GeneratingActivity extends AppCompatActivity {
                 }
 
                 factory.waitTillDelivered();
+
+                while(factory.getBuildThread().isAlive()){
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
                 info.setMaze(order.getMaze());
                 info.setPrevMaze(order.getMaze());
             }

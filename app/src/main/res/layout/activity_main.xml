@@ -67,7 +67,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="@string/would_you_like_rooms_in_the_maze"
+        android:text="Would you like a perfect maze (no rooms)?"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

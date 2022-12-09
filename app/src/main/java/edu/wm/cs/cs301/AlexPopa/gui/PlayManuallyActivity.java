@@ -41,10 +41,12 @@ public class PlayManuallyActivity extends AppCompatActivity {
 
         Information info = Information.getInformation();
 
+        //start music
         MediaPlayer music = MediaPlayer.create(this, R.raw.hkpath);
         music.start();
         music.setLooping(true);
 
+        //setup
         StatePlaying state = new StatePlaying();
         state.setMaze(info.getMaze());
         Maze maze = state.getMaze();
@@ -61,8 +63,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLELOCALMAP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
-                walls.show();
+                /*Snackbar walls = Snackbar.make(findViewById(android.R.id.content), "Walls pressed", 500);
+                walls.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Walls pressed");
             }
@@ -77,8 +79,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLEFULLMAP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
-                full.show();
+                /*Snackbar full = Snackbar.make(findViewById(android.R.id.content), "Full maze pressed", 500);
+                full.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Full maze pressed");
             }
@@ -93,8 +95,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(TOGGLESOLUTION, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
-                solut.show();
+                /*Snackbar solut = Snackbar.make(findViewById(android.R.id.content), "Solution pressed", 500);
+                solut.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Solution pressed");
             }
@@ -109,8 +111,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(ZOOMOUT, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
-                sma.show();
+                /*Snackbar sma = Snackbar.make(findViewById(android.R.id.content), "Smaller pressed", 500);
+                sma.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Smaller pressed");
             }
@@ -125,8 +127,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(ZOOMIN, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
-                b.show();
+                /*Snackbar b = Snackbar.make(findViewById(android.R.id.content), "Bigger pressed", 500);
+                b.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Button", "Bigger pressed");
             }
@@ -144,12 +146,13 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 }
                 state.handleUserInput(UP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar u = Snackbar.make(findViewById(android.R.id.content), "Pressed up", 500);
-                u.show();
+                /*Snackbar u = Snackbar.make(findViewById(android.R.id.content), "Pressed up", 500);
+                u.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Up pressed");
-                //increase count
+                //if moved through the exit
                 if(state.isFinished()){
+                    Log.v("End", "Won");
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                     music.stop();
                     music.release();
@@ -175,12 +178,13 @@ public class PlayManuallyActivity extends AppCompatActivity {
                 }
                 state.handleUserInput(DOWN, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar d = Snackbar.make(findViewById(android.R.id.content), "Pressed down", 500);
-                d.show();
+                /*Snackbar d = Snackbar.make(findViewById(android.R.id.content), "Pressed down", 500);
+                d.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Down pressed");
-                //increase count
+                //if moved through the exit
                 if(state.isFinished()){
+                    Log.v("End", "Won");
                     Intent intentG = new Intent(view.getContext(), WinningActivity.class);
                     music.stop();
                     music.release();
@@ -203,11 +207,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(LEFT, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar l = Snackbar.make(findViewById(android.R.id.content), "Pressed left", 500);
-                l.show();
+                /*Snackbar l = Snackbar.make(findViewById(android.R.id.content), "Pressed left", 500);
+                l.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Left pressed");
-                //increase count
             }
         });
 
@@ -220,11 +223,10 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(RIGHT, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar r = Snackbar.make(findViewById(android.R.id.content), "Pressed right", 500);
-                r.show();
+                /*Snackbar r = Snackbar.make(findViewById(android.R.id.content), "Pressed right", 500);
+                r.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Right pressed");
-                //increase count
             }
         });
 
@@ -237,8 +239,8 @@ public class PlayManuallyActivity extends AppCompatActivity {
             public void onClick(View view){
                 state.handleUserInput(JUMP, 0);
                 //make a pop up message saying the button was clicked
-                Snackbar j = Snackbar.make(findViewById(android.R.id.content), "Pressed jump", 500);
-                j.show();
+                /*Snackbar j = Snackbar.make(findViewById(android.R.id.content), "Pressed jump", 500);
+                j.show();*/
                 //make a log message saying the button was clicked
                 Log.v("Direction", "Jump pressed");
                 //increase count

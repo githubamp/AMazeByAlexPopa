@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -28,8 +29,10 @@ public class WinningActivity  extends AppCompatActivity {
         //get the information from the intent that started this activity
         Intent information = getIntent();
 
+        //vibration
         final Vibrator vib =  (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         vib.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE));
+        Log.v("Vib", "Vibration");
         //vib.cancel();
 
         //receive the information from the intent and make a variable for each appropriate value (pathlength, shortest path, and energy spent)
@@ -48,6 +51,7 @@ public class WinningActivity  extends AppCompatActivity {
         //add the intent information to the text
         steps.setText("You traveled " + pathLength + " steps");
         shortest.setText("The shortest path length was " + small + " steps");
+        Log.v("Text", "Text set");
 
         //if a robot was used, make the energy text variable and include the energy that was spent
         if(rob.equals("y")){

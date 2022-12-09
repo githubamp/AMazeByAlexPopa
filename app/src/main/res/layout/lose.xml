@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/mazelose">
 
     <EditText
         android:id="@+id/Instructions"
@@ -15,6 +16,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Click back to run another maze!"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +32,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Energy spent: "
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -45,6 +48,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="The shortest path length was"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -62,6 +66,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="@string/you_traveled"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -78,24 +83,12 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="You got lost in the underground :("
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.079" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="438dp"
-        android:layout_height="171dp"
-        android:layout_marginTop="31dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/mazelose" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
